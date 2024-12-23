@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
+import 'package:fruit_hub/features/authentication/presentation/views/login_view.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem(
@@ -45,10 +46,16 @@ class PageViewItem extends StatelessWidget {
                 child: Positioned(
                   right: 30,
                   top: 70,
-                  child: Text(
-                    'تخطي',
-                    style: AppTextStyle.font13w400.copyWith(
-                      color: Color(0xFF949D9E),
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushReplacementNamed(LoginView.routeName);
+                    },
+                    child: Text(
+                      'تخطي',
+                      style: AppTextStyle.font13w400.copyWith(
+                        color: Color(0xFF949D9E),
+                      ),
                     ),
                   ),
                 ),
