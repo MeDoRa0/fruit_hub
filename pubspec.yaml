@@ -28,10 +28,11 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter_localizations:
-    sdk: flutter
   cupertino_icons: ^1.0.8
+  dots_indicator: ^3.0.0
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.16
 
@@ -66,20 +67,17 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  
   # ... other flutter configurations
-
   fonts:
     - family: Cairo # This is the name you'll use in your code
       fonts:
-        - asset: assets/fonts/Cairo-Regular.ttf 
-          weight: 400 
-        - asset: assets/fonts/Cairo-Bold.ttf 
-          weight: 700 
-        - asset: assets/fonts/Cairo-SemiBold.ttf 
-          weight: 600 
-        
-  #
+        - asset: assets/fonts/Cairo-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Cairo-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Cairo-SemiBold.ttf
+          weight: 600
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
   assets:
