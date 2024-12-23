@@ -14,9 +14,7 @@ class OnBoardingPageView extends StatelessWidget {
       controller: pageController,
       children: [
         PageViewItem(
-          isVisable:
-              (pageController.hasClients ? pageController.page!.round() : 0) ==
-                  0,
+          isVisable: true,
 
           //  key: ValueKey('page1'),
           image: Assets.imagesOnboardingImage1,
@@ -49,9 +47,7 @@ class OnBoardingPageView extends StatelessWidget {
               'اكتشف تجربة تسوق فريدة مع FruitHUB. استكشف مجموعتنا الواسعة من الفواكه الطازجة الممتازة واحصل على أفضل العروض والجودة العالية.',
         ),
         PageViewItem(
-          isVisable:
-              (pageController.hasClients ? pageController.page!.round() : 0) !=
-                  0,
+          isVisable: false,
           // key: ValueKey('page2'),
           image: Assets.imagesOnboardingImage2,
           backgroundImage: Assets.imagesOnboardingBg2,
