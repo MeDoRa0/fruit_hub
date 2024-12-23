@@ -8,9 +8,12 @@ class PageViewItem extends StatelessWidget {
       required this.image,
       required this.backgroundImage,
       required this.subTitle,
-      required this.title});
+      required this.title,
+      required this.isVisable});
   final String image, backgroundImage, subTitle;
   final Widget title;
+  final bool isVisable;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -37,12 +40,15 @@ class PageViewItem extends StatelessWidget {
                   image,
                 ),
               ),
-              Positioned(
-                right: 30,
-                top: 70,
-                child: Text(
-                  'تخطي',
-                  style: AppTextStyle.font13w400,
+              Visibility(
+                visible: isVisable,
+                child: Positioned(
+                  right: 30,
+                  top: 70,
+                  child: Text(
+                    'تخطي',
+                    style: AppTextStyle.font13w400,
+                  ),
                 ),
               )
             ],
@@ -58,7 +64,7 @@ class PageViewItem extends StatelessWidget {
         Text(
           subTitle,
           textAlign: TextAlign.center,
-          style: AppTextStyle.font13w600,
+          style: AppTextStyle.font13w600.copyWith(height: 1.7, ),
         ),
       ],
     );

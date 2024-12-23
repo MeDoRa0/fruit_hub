@@ -11,6 +11,7 @@ class AppTextStyle {
     fontWeight: FontWeight.w400, // Regular
     height: 1.4, // 140% line height
     letterSpacing: 0,
+    
   );
 
   static TextStyle heading1Bold = const TextStyle(
