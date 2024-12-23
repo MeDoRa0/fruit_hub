@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppTextStyle {
+abstract class AppTextStyle {
   // Font Family
   static const String fontFamily = 'Cairo'; // Make sure this is the name of your font family in pubspec.yaml
 

@@ -47,7 +47,9 @@ class PageViewItem extends StatelessWidget {
                   top: 70,
                   child: Text(
                     'تخطي',
-                    style: AppTextStyle.font13w400,
+                    style: AppTextStyle.font13w400.copyWith(
+                      color: Color(0xFF949D9E),
+                    ),
                   ),
                 ),
               )
@@ -61,10 +63,16 @@ class PageViewItem extends StatelessWidget {
         SizedBox(
           height: 24,
         ),
-        Text(
-          subTitle,
-          textAlign: TextAlign.center,
-          style: AppTextStyle.font13w600.copyWith(height: 1.7, ),
+        SizedBox(
+          width: 301,
+          child: Text(
+            subTitle,
+            textAlign: TextAlign.center,
+            style: AppTextStyle.font13w600.copyWith(
+              height: 1.7,
+              color: Color(0xFF4E5456),
+            ),
+          ),
         ),
       ],
     );
