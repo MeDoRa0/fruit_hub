@@ -113,7 +113,7 @@ class AppTextStyle {
     letterSpacing: 0,
   );
 
-  static TextStyle bodyBaseBold = const TextStyle(
+  static TextStyle font16Bold = const TextStyle(
     fontFamily: fontFamily,
     fontSize: 16,
     fontWeight: FontWeight.bold,
