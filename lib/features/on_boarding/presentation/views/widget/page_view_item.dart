@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fruit_hub/core/utils/assets.dart';
+import 'package:fruit_hub/core/utils/text_styles.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem(
@@ -24,7 +24,7 @@ class PageViewItem extends StatelessWidget {
               //Positioned.fill is used to fill the parent widget
               Positioned.fill(
                 child: SvgPicture.asset(
-                  Assets.imagesOnboardingBg1,
+                  backgroundImage,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -34,17 +34,32 @@ class PageViewItem extends StatelessWidget {
                 left: 0,
                 right: 0,
                 child: SvgPicture.asset(
-                  Assets.imagesOnboardingImage1,
+                  image,
                 ),
               ),
               Positioned(
                 right: 30,
                 top: 70,
-                child: Text('تخطي'),
+                child: Text(
+                  'تخطي',
+                  style: AppTextStyle.font13w400,
+                ),
               )
             ],
           ),
-        )
+        ),
+        SizedBox(
+          height: 64,
+        ),
+        title,
+        SizedBox(
+          height: 24,
+        ),
+        Text(
+          subTitle,
+          textAlign: TextAlign.center,
+          style: AppTextStyle.font13w600,
+        ),
       ],
     );
   }
