@@ -130,7 +130,7 @@ abstract class AppTextStyle {
     letterSpacing: 0,
   );
 
-  static TextStyle bodySmallBold = const TextStyle(
+  static TextStyle font13Bold = const TextStyle(
     fontFamily: fontFamily,
     fontSize: 13,
     fontWeight: FontWeight.bold,
