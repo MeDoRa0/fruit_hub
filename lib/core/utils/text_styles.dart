@@ -104,6 +104,13 @@ abstract class AppTextStyle {
     height: 1.4,
     letterSpacing: 0,
   );
+  static TextStyle font16SemiBold = const TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    height: 1.4,
+    letterSpacing: 0,
+  );
 
 
   static TextStyle bodyBaseRegular = const TextStyle(
