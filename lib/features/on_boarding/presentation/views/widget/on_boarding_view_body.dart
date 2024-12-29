@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/constant.dart';
+import 'package:fruit_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/login_view.dart';
@@ -62,6 +63,9 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             child: CustomButton(
               text: 'ابدأ الان',
               onPressed: () {
+                // set the value of isOnBoardingViewSeen to true to prevent the user from seeing the onboarding view again
+                SharedPreferencesSingleton.setBool(kIsOnBoardingViewSeen, true);
+
                 Navigator.of(context).pushReplacementNamed(LoginView.routeName);
               },
             ),

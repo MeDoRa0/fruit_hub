@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fruit_hub/constant.dart';
+import 'package:fruit_hub/core/services/shared_preferences_singleton.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/login_view.dart';
 
@@ -48,6 +50,9 @@ class PageViewItem extends StatelessWidget {
                   top: 70,
                   child: TextButton(
                     onPressed: () {
+                      //set the value of isOnBoardingViewSeen to true so the app will not show the onBoardingView again
+                      SharedPreferencesSingleton
+                          .setBool(kIsOnBoardingViewSeen, true);
                       Navigator.of(context)
                           .pushReplacementNamed(LoginView.routeName);
                     },
