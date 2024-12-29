@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_hub/core/helper_functions/on_generate_routes.dart';
 import 'package:fruit_hub/core/services/shared_preferences_singleton.dart';
+import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/features/splash/presentation/views/splash_view.dart';
 import 'package:fruit_hub/generated/l10n.dart';
@@ -19,7 +20,10 @@ class FruitsHub extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       //this code is added to set the default font family (cairo) for the app
-      theme: ThemeData(fontFamily: AppTextStyle.fontFamily),
+      theme: ThemeData(
+        fontFamily: AppTextStyle.fontFamily,
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
+      ),
       //this code is added to support localization
       localizationsDelegates: [
         S.delegate,

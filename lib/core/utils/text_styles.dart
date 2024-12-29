@@ -97,7 +97,7 @@ abstract class AppTextStyle {
     letterSpacing: 0,
   );
 
-    static TextStyle bodyLargeBold = const TextStyle(
+    static TextStyle font19Bold = const TextStyle(
     fontFamily: fontFamily,
     fontSize: 19, // Corrected to 19px as per image. It was 15px by mistake.
     fontWeight: FontWeight.bold,
