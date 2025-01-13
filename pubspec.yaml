@@ -83,9 +83,12 @@ flutter:
   # see https://flutter.dev/to/font-from-package
   assets:
     - assets/images/
+    - assets/icons/
 
 flutter_assets:
-  assets_path: assets/images/
+  assets_path: 
+    - assets/images/
+    - assets/icons/
   output_path: lib/core/utils/
   filename: assets.dart
   field_prefix: null
