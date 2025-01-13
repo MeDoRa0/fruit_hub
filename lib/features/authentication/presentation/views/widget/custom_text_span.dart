@@ -1,11 +1,17 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 
-class DontHaveAnAccountWidget extends StatelessWidget {
-  const DontHaveAnAccountWidget({
+class CustomTextSpan extends StatelessWidget {
+  const CustomTextSpan({
     super.key,
+    required this.firstText,
+    required this.secondText,
+    required this.onTap,
   });
+  final String firstText, secondText;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,7 @@ class DontHaveAnAccountWidget extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(
-            text: 'لا تمتلك حساب؟',
+            text: firstText,
             style: AppTextStyle.font16SemiBold.copyWith(
               color: Color(0xFF616A6B),
               height: 1.40,
@@ -27,7 +33,11 @@ class DontHaveAnAccountWidget extends StatelessWidget {
             ),
           ),
           TextSpan(
-            text: 'قم بإنشاء حساب',
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                onTap();
+              },
+            text: secondText,
             style: AppTextStyle.font16SemiBold.copyWith(
               color: AppColors.primaryColor,
               height: 1.40,

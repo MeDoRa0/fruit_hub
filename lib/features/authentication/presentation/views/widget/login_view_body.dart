@@ -5,7 +5,8 @@ import 'package:fruit_hub/core/utils/assets.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
-import 'package:fruit_hub/features/authentication/presentation/views/widget/dont_have_an_account_widget.dart';
+import 'package:fruit_hub/features/authentication/presentation/views/signup_view.dart';
+import 'package:fruit_hub/features/authentication/presentation/views/widget/custom_text_span.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/widget/or_divider.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/widget/social_login_button.dart';
 
@@ -60,7 +61,13 @@ class LoginViewBody extends StatelessWidget {
           SizedBox(
             height: 45,
           ),
-          DontHaveAnAccountWidget(),
+          CustomTextSpan(
+            firstText: 'لا تمتلك حساب؟',
+            secondText: 'قم بإنشاء حساب',
+            onTap: () {
+              Navigator.pushNamed(context, SignupView.routeName);
+            },
+          ),
           SizedBox(height: 33),
           OrDivider(),
           SizedBox(height: 16),
