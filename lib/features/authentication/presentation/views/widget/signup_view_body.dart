@@ -16,7 +16,7 @@ class SignupViewBody extends StatelessWidget {
         children: [
           SizedBox(
             height: 24,
-          ),
+          ), 
           CustomTextFormField(
               hintText: 'الإسم كامل', keyboardType: TextInputType.name),
           SizedBox(
