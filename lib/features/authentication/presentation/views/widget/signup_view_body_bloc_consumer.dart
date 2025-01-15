@@ -13,7 +13,16 @@ class SignupViewBlocConsumer extends StatelessWidget {
   Widget build(BuildContext context) {
     //BlocConsumer for SignupCubit and SignupState to listen to the state changes and rebuild the UI accordingly
     return BlocConsumer<SignupCubit, SignupState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SignupSuccess) {}
+        if (state is SignupFailuer) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         // Show ModalProgressHUD while the state is SignupLoading
         return ModalProgressHUD(
