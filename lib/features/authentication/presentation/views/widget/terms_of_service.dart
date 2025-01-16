@@ -4,7 +4,8 @@ import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/widget/custom_checkbox.dart';
 
 class TermsOfService extends StatefulWidget {
-  const TermsOfService({super.key});
+  const TermsOfService({super.key, required this.onChecked});
+  final ValueChanged<bool> onChecked;
 
   @override
   State<TermsOfService> createState() => _TermsOfServiceState();
@@ -19,6 +20,7 @@ class _TermsOfServiceState extends State<TermsOfService> {
         isChecked: isTermsAccepted,
         onChecked: (value) {
           isTermsAccepted = value;
+          widget.onChecked(isTermsAccepted);
           setState(() {});
         },
       ),

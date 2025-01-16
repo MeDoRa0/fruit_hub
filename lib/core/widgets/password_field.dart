@@ -20,9 +20,7 @@ class _PasswordFieldState extends State<PasswordField> {
     return CustomTextFormField(
       obscureText: obsecureText,
       // Save the value of the text field
-      onSaved: (value) {
-        // password = value!;
-      },
+      onSaved: widget.onSaved,
       hintText: 'كلمة المرور',
       keyboardType: TextInputType.visiblePassword,
       //suffix icon to toggle the visibility of the password text field

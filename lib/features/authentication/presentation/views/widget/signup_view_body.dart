@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/constant.dart';
+import 'package:fruit_hub/core/helper_functions/build_error_bar.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub/features/authentication/presentation/cubits/signup_cubit/signup_cubit.dart';
@@ -21,6 +22,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   // Create a global variable to store the AutovalidateMode
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
   late String name, email, password;
+  late bool isTermsAccepted = false;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -54,14 +56,19 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             SizedBox(
               height: 16,
             ),
-            PasswordField(onSaved: (value) {
-              password = value!;
-              
-            },),
+            PasswordField(
+              onSaved: (value) {
+                password = value!;
+              },
+            ),
             SizedBox(
               height: 16,
             ),
-            TermsOfService(),
+            TermsOfService(
+              onChecked: (value) {
+                isTermsAccepted = value;
+              },
+            ),
             SizedBox(
               height: 30,
             ),
@@ -72,11 +79,15 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   // If the form is valid, display a Snackbar
-                  context.read<SignupCubit>().createUserWithEmailAndPassword(
-                        name: name,
-                        email: email,
-                        password: password,
-                      );
+                  if (isTermsAccepted) {
+                    context.read<SignupCubit>().createUserWithEmailAndPassword(
+                          name: name,
+                          email: email,
+                          password: password,
+                        );
+                  } else {
+                    buildErrorBar(context, 'الرجاء قبول الشروط والأحكام');
+                  }
                 } else {
                   // If the form is invalid, display an error
                   setState(() {
@@ -101,4 +112,3 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     );
   }
 }
-
