@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruit_hub/core/helper_functions/build_error_bar.dart';
 import 'package:fruit_hub/core/widgets/custom_progress_hud.dart';
 import 'package:fruit_hub/features/authentication/presentation/cubits/login_cubit/login_cubit.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/widget/login_view_body.dart';
@@ -12,7 +13,14 @@ class LoginViewBodyBlocConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is LoginSuccess) {
+          // Navigate to the home screen
+        }
+        if (state is LoginFailuer) {
+          buildErrorBar(context, state.message);
+        }
+      },
       builder: (context, state) {
         return CustomProgressHUD(
           isLoading: state is LoginLoading ? true : false,

@@ -42,12 +42,9 @@ class FirebaseAuthService {
       return credential.user!;
     } on FirebaseAuthException catch (e) {
       log('Exception in firebase auth service.sign in with email and password: ${e.toString()} and code is ${e.code}');
-      if (e.code == 'user-not-found') {
+      if (e.code == 'invalid-credential') {
         throw CustomException(
             message: 'البريد الإلكتروني أو كلمة المرور غير صحيحة');
-      } else if (e.code == 'wrong-password') {
-        throw CustomException(
-            message: ' البريد الإلكتروني أو كلمة المرور غير صحيحة');
       } else if (e.code == 'network-request-failed') {
         throw CustomException(message: 'لا يوجد اتصال بالإنترنت');
       } else {

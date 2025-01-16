@@ -8,9 +8,11 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this.authRepo) : super(LoginInitial());
   final AuthRepo authRepo;
-Future<void> signInWithEmailAndPassword({required String email, required String password}) async {
+  Future<void> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
     emit(LoginLoading());
-    var result = await authRepo.signInWithEmailAndPassword(email: email, password: password);
+    var result = await authRepo.signInWithEmailAndPassword(
+        email: email, password: password);
     result.fold(
       (failuer) => emit(LoginFailuer(failuer.message)),
       (user) => emit(LoginSuccess(user)),
