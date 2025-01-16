@@ -3,23 +3,29 @@ import 'package:fruit_hub/core/utils/text_styles.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
-      {super.key, required this.hintText, required this.keyboardType,  this.suffixIcon, this.onSaved});
+      {super.key,
+      required this.hintText,
+      required this.keyboardType,
+      this.suffixIcon,
+      this.onSaved,
+      this.obscureText = false});
   final String hintText;
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final void Function(String?)? onSaved;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onSaved:onSaved ,
+      obscureText: obscureText,
+      onSaved: onSaved,
       validator: (value) {
         if (value!.isEmpty) {
           return 'الرجاء إدخال $hintText';
         }
         return null;
       },
-      
       keyboardType: keyboardType,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
