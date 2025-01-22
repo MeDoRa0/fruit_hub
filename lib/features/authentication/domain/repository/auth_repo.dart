@@ -15,4 +15,5 @@ abstract class AuthRepo {
   });
 
   Future<Either<Failuers, UserEntity>> signInWithGoogle();
+  Future<Either<Failuers, UserEntity>> signInWithFacebook();
 }
