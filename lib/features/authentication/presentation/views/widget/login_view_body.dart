@@ -106,7 +106,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             SocialLoginButton(
               label: 'تسجيل بواسطة أبل',
               logo: Assets.iconsAppleLogo,
-              onPressed: () {},
+              onPressed: () {
+                context.read<LoginCubit>().signInWithApple();
+              },
             ),
             SizedBox(height: 16),
             SocialLoginButton(
