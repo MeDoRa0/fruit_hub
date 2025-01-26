@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/constant.dart';
@@ -21,7 +23,7 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  late String email, password;
+  late String email, password, name;
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
@@ -74,7 +76,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   context.read<LoginCubit>().signInWithEmailAndPassword(
-                      email: email, password: password);
+                      email: email, password: password, name: name);
                 } else {
                   setState(() {
                     autoValidate = AutovalidateMode.onUserInteraction;
@@ -103,13 +105,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               },
             ),
             SizedBox(height: 16),
-            SocialLoginButton(
-              label: 'تسجيل بواسطة أبل',
-              logo: Assets.iconsAppleLogo,
-              onPressed: () {
-                context.read<LoginCubit>().signInWithApple();
-              },
-            ),
+            // Apple login is only available for iOS
+            Platform.isIOS
+                ? SocialLoginButton(
+                    label: 'تسجيل بواسطة أبل',
+                    logo: Assets.iconsAppleLogo,
+                    onPressed: () {
+                      context.read<LoginCubit>().signInWithApple();
+                    },
+                  )
+                : SizedBox(),
             SizedBox(height: 16),
             SocialLoginButton(
               label: 'تسجيل بواسطة فيسبوك',

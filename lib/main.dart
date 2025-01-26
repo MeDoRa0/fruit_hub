@@ -14,16 +14,17 @@ import 'package:fruit_hub/generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+// this code is added to initialize firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // this code is added to initialize the custom bloc observer
   Bloc.observer = CustomBlocObserver();
   // this code is added to initialize shared preferences
   await SharedPreferencesSingleton.init();
   // this code is added to initialize get_it service
   setupGetit();
-  // this code is added to initialize firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   runApp(const FruitsHub());
 }
 
