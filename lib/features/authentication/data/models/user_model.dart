@@ -7,14 +7,18 @@ class UserModel extends UserEntity {
     required super.email,
     required super.uId,
   });
-factory UserModel.fromFirebase(User user){
-  return UserModel(
-    name: user.displayName??'',
-    email: user.email??'',
-    uId: user.uid,
-  );
-}
-
-
-
+  factory UserModel.fromFirebase(User user) {
+    return UserModel(
+      name: user.displayName ?? '',
+      email: user.email ?? '',
+      uId: user.uid,
+    );
+  }
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      name: map['name'],
+      email: map['email'],
+      uId: map['uId'],
+    );
+  }
 }

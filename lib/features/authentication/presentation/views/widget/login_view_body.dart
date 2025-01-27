@@ -23,7 +23,7 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  late String email, password, name;
+  late String email, password ;
   AutovalidateMode autoValidate = AutovalidateMode.disabled;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
@@ -76,7 +76,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 if (formKey.currentState!.validate()) {
                   formKey.currentState!.save();
                   context.read<LoginCubit>().signInWithEmailAndPassword(
-                      email: email, password: password, name: name);
+                      email: email, password: password,);
                 } else {
                   setState(() {
                     autoValidate = AutovalidateMode.onUserInteraction;

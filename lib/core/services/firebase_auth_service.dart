@@ -27,6 +27,10 @@ class FirebaseAuthService {
         throw CustomException(message: 'لا يوجد اتصال بالإنترنت');
       } else if (e.code == 'email-already-in-use') {
         throw CustomException(message: 'البريد الإلكتروني مستخدم بالفعل.');
+      } else if (e.code == 'account-exists-with-different-credential') {
+        throw CustomException(
+            message:
+                'البريد الالكتروني المدخل مستخدم بالفعل بواسطة طريقة تسجيل دخول مختلفة');
       } else {
         throw CustomException(message: 'حدث خطأ ما، يرجى المحاولة مرة أخرى.');
       }
