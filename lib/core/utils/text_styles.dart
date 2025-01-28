@@ -113,7 +113,7 @@ abstract class AppTextStyle {
   );
 
 
-  static TextStyle bodyBaseRegular = const TextStyle(
+  static TextStyle font16Regular = const TextStyle(
     fontFamily: fontFamily,
     fontSize: 16,
     fontWeight: FontWeight.w400,

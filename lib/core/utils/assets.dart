@@ -18,6 +18,18 @@ class Assets {
   /// assets/icons/google_logo.svg
   static const String iconsGoogleLogo = "assets/icons/google_logo.svg";
 
+  /// Assets for iconsNotification
+  /// assets/icons/notification.svg
+  static const String iconsNotification = "assets/icons/notification.svg";
+
+  /// Assets for iconsSearchFilter
+  /// assets/icons/search_filter.svg
+  static const String iconsSearchFilter = "assets/icons/search_filter.svg";
+
+  /// Assets for iconsSearchIcon
+  /// assets/icons/search_icon.svg
+  static const String iconsSearchIcon = "assets/icons/search_icon.svg";
+
   /// Assets for imagesFruitLogo
   /// assets/images/fruit_logo.png
   static const String imagesFruitLogo = "assets/images/fruit_logo.png";
@@ -42,9 +54,9 @@ class Assets {
   /// assets/images/onboarding_image_2.svg
   static const String imagesOnboardingImage2 = "assets/images/onboarding_image_2.svg";
 
-  /// Assets for imagesProfileImage
-  /// assets/images/profile_image.svg
-  static const String imagesProfileImage = "assets/images/profile_image.svg";
+  /// Assets for imagesProfile
+  /// assets/images/profile.png
+  static const String imagesProfile = "assets/images/profile.png";
 
   /// Assets for imagesSplashBottom
   /// assets/images/splash_bottom.svg
