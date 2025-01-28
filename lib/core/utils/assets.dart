@@ -30,9 +30,21 @@ class Assets {
   /// assets/icons/search_icon.svg
   static const String iconsSearchIcon = "assets/icons/search_icon.svg";
 
+  /// Assets for imagesFeaturedItemBg
+  /// assets/images/featured_item_bg.svg
+  static const String imagesFeaturedItemBg = "assets/images/featured_item_bg.svg";
+
+  /// Assets for imagesFruit
+  /// assets/images/fruit.png
+  static const String imagesFruit = "assets/images/fruit.png";
+
   /// Assets for imagesFruitLogo
   /// assets/images/fruit_logo.png
   static const String imagesFruitLogo = "assets/images/fruit_logo.png";
+
+  /// Assets for imagesFruitTest
+  /// assets/images/fruit_test.png
+  static const String imagesFruitTest = "assets/images/fruit_test.png";
 
   /// Assets for imagesLeafTop
   /// assets/images/leaf_top.svg
