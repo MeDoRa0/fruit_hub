@@ -18,9 +18,37 @@ class Assets {
   /// assets/icons/google_logo.svg
   static const String iconsGoogleLogo = "assets/icons/google_logo.svg";
 
+  /// Assets for iconsHome
+  /// assets/icons/home.svg
+  static const String iconsHome = "assets/icons/home.svg";
+
+  /// Assets for iconsHomeFill
+  /// assets/icons/home_fill.svg
+  static const String iconsHomeFill = "assets/icons/home_fill.svg";
+
   /// Assets for iconsNotification
   /// assets/icons/notification.svg
   static const String iconsNotification = "assets/icons/notification.svg";
+
+  /// Assets for iconsProducts
+  /// assets/icons/products.svg
+  static const String iconsProducts = "assets/icons/products.svg";
+
+  /// Assets for iconsProductsFill
+  /// assets/icons/products_fill.svg
+  static const String iconsProductsFill = "assets/icons/products_fill.svg";
+
+  /// Assets for iconsProfile
+  /// assets/icons/profile.svg
+  static const String iconsProfile = "assets/icons/profile.svg";
+
+  /// Assets for iconsProfileFill
+  /// assets/icons/profile_fill.svg
+  static const String iconsProfileFill = "assets/icons/profile_fill.svg";
+
+  /// Assets for iconsS
+  /// assets/icons/s.svg
+  static const String iconsS = "assets/icons/s.svg";
 
   /// Assets for iconsSearchFilter
   /// assets/icons/search_filter.svg
@@ -29,6 +57,14 @@ class Assets {
   /// Assets for iconsSearchIcon
   /// assets/icons/search_icon.svg
   static const String iconsSearchIcon = "assets/icons/search_icon.svg";
+
+  /// Assets for iconsShoppingCart
+  /// assets/icons/shopping-cart.svg
+  static const String iconsShoppingCart = "assets/icons/shopping-cart.svg";
+
+  /// Assets for iconsShoppingCartFill
+  /// assets/icons/shopping-cart_fill.svg
+  static const String iconsShoppingCartFill = "assets/icons/shopping-cart_fill.svg";
 
   /// Assets for imagesFeaturedItemBg
   /// assets/images/featured_item_bg.svg
