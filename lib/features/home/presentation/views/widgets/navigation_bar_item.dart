@@ -14,7 +14,10 @@ class NavigationBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isSelected
-        ? ActiveItem()
+        ? ActiveItem(
+            label: bottmonNavigationBarEntity.label,
+            icon: bottmonNavigationBarEntity.activeIcon,
+          )
         : InActiveItem(
             icon: bottmonNavigationBarEntity.inActiveIcon,
           );

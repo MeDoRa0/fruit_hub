@@ -168,4 +168,11 @@ abstract class AppTextStyle {
     height: 1.4,
     letterSpacing: 0,
   );
+  static TextStyle font11SemiBoldW600 = const TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 11,
+    fontWeight: FontWeight.w600,
+    height: 1.4,
+    letterSpacing: 0,
+  );
 }
