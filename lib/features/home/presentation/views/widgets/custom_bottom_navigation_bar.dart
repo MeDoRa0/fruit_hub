@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fruit_hub/core/utils/assets.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
@@ -25,6 +27,42 @@ class CustomBottomNavigationBar extends StatelessWidget {
           )
         ],
       ),
+      child: Row(
+        
+      ),
     );
+  }
+}
+
+class InActiveItem extends StatelessWidget {
+  const InActiveItem({super.key, required this.icon});
+  final String icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return SvgPicture.asset(icon);
+  }
+}
+
+class NavigationBarItem extends StatelessWidget {
+  const NavigationBarItem({super.key, required this.isSelected});
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return isSelected
+        ? ActiveItem()
+        : InActiveItem(
+            icon: Assets.iconsHome,
+          );
+  }
+}
+
+class ActiveItem extends StatelessWidget {
+  const ActiveItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
