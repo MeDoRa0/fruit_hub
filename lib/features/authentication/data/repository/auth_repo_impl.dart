@@ -73,6 +73,7 @@ class AuthRepoImpl extends AuthRepo {
       var userEntity = await fetchUserData(
         uId: user.uid,
       );
+      await saveUserData(user: userEntity);
 //return user entity
       return Right(
         userEntity,
@@ -164,6 +165,7 @@ class AuthRepoImpl extends AuthRepo {
         path: BackendEndpoint.fetchUserData, docID: uId);
     return UserModel.fromMap(userData);
   }
+
 //save user data
   @override
   Future saveUserData({required UserEntity user}) async {
