@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fruit_hub/core/utils/assets.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
+import 'package:fruit_hub/core/widgets/notification_icon_widget.dart';
 
 class CustomHomeAppBar extends StatelessWidget {
   const CustomHomeAppBar({super.key});
@@ -20,13 +21,7 @@ class CustomHomeAppBar extends StatelessWidget {
         'محمد حسام',
         style: AppTextStyle.font16Bold,
       ),
-      trailing: CircleAvatar(
-        radius: 34,
-        backgroundColor: Color(0xFFEEF8ED),
-        child: SvgPicture.asset(
-          Assets.iconsNotification,
-        ),
-      ),
+      trailing: NotificationIconWidget(),
     );
   }
 }
