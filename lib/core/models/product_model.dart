@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:fruit_hub/core/entites/product_input_entity.dart';
 import 'package:fruit_hub/core/models/review_model.dart';
 
-
-class ProductInputModel {
+class ProductModel {
   final String name;
   final String code;
   final String description;
@@ -19,8 +17,9 @@ class ProductInputModel {
   final num avrageRating = 0;
   final num ratingCount = 0;
   final List<ReviewModel> reviews;
+  final num sellingCount;
 
-  ProductInputModel(
+  ProductModel(
       {required this.name,
       required this.code,
       required this.description,
@@ -28,31 +27,29 @@ class ProductInputModel {
       required this.image,
       required this.isFeatured,
       required this.reviews,
-      this.imageUrl,
+      required this.imageUrl,
+      this.sellingCount = 0,
       required this.expiryLimit,
       this.isOrganic = false,
       required this.numberOfCalories,
       required this.unitAmount});
-
-  factory ProductInputModel.fromEntity(
-      ProductInputEntity addProductInputEntity) {
-    return ProductInputModel(
-      reviews: addProductInputEntity.reviews
-          .map((e) => ReviewModel.fromEntity(e))
-          .toList(),
-      name: addProductInputEntity.name,
-      code: addProductInputEntity.code,
-      description: addProductInputEntity.description,
-      price: addProductInputEntity.price,
-      image: addProductInputEntity.image,
-      isFeatured: addProductInputEntity.isFeatured,
-      imageUrl: addProductInputEntity.imageUrl,
-      expiryLimit: addProductInputEntity.expiryLimit,
-      isOrganic: addProductInputEntity.isOrganic,
-      numberOfCalories: addProductInputEntity.numberOfCalories,
-      unitAmount: addProductInputEntity.unitAmount,
+factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      name: json['name'],
+      code: json['code'],
+      description: json['description'],
+      price: json['price'],
+      image: File(json['image']),
+      isFeatured: json['isFeatured'],
+      imageUrl: json['imageUrl'],
+      expiryLimit: json['expiryLimit'],
+      isOrganic: json['isOrganic'],
+      numberOfCalories: json['numberOfCalories'],
+      unitAmount: json['unitAmount'],
+      reviews: json['reviews'].map((e) => ReviewModel.fromJson(e)).toList(),
+      sellingCount: json['sellingCount'],
     );
-  }
+}
 
   toJson() {
     return {
@@ -68,6 +65,7 @@ class ProductInputModel {
       'numberOfCalories': numberOfCalories,
       'unitAmount': unitAmount,
       'reviews': reviews.map((e) => e.toJson()).toList(),
+      'sellingCount': sellingCount,
     };
   }
 }

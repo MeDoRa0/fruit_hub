@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:fruit_hub/core/entites/review_entity.dart';
 
-
-class ProductInputEntity {
+class ProductEntity {
   final String name;
   final String code;
   final String description;
@@ -19,7 +18,7 @@ class ProductInputEntity {
   final num ratingCount = 0;
   final List<ReviewEntity> reviews;
 
-  ProductInputEntity(
+  ProductEntity(
       {required this.name,
       required this.code,
       required this.description,
