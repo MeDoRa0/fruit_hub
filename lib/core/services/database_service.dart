@@ -8,6 +8,7 @@ abstract class DatabaseService {
   Future<dynamic> fetchData({
     required String path,
      String? docID,
+     Map<String, dynamic>? query,
   });
 
   Future<bool> checkIfDataExists({
