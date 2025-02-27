@@ -18,7 +18,7 @@ class ProductRepoImpl extends ProductRepo {
           query: {
             'limit': 10,
             'orderBy': 'sellingCount',
-            'decending': true
+            'descending': true
           }) as List<Map<String, dynamic>>;
       List<ProductModel> products =
           data.map((e) => ProductModel.fromJson(e)).toList();
