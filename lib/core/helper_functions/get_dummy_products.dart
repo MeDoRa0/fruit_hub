@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:fruit_hub/core/entites/product_entity.dart';
 
@@ -16,7 +15,7 @@ ProductEntity getDummyProduct() {
       unitAmount: 1,
       reviews: [],
       expiryLimit: 5,
-      image: File(''));
+     );
 }
 
 List<ProductEntity> getDummyProducts() {
