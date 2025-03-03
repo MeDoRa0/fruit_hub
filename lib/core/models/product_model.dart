@@ -1,4 +1,6 @@
+
 import 'package:fruit_hub/core/entites/product_entity.dart';
+import 'package:fruit_hub/core/entites/review_entity.dart';
 import 'package:fruit_hub/core/helper_functions/get_avarage_rating.dart';
 import 'package:fruit_hub/core/models/review_model.dart';
 
@@ -27,7 +29,7 @@ class ProductModel {
       required this.avrageRating,
       required this.isFeatured,
       required this.reviews,
-      required this.imageUrl,
+       this.imageUrl,
       this.sellingCount = 0,
       required this.expiryLimit,
       this.isOrganic = false,
@@ -35,18 +37,26 @@ class ProductModel {
       required this.unitAmount});
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
+      avrageRating: getAvrageRating(
+        (json['reviews'] as List<dynamic>?)
+                ?.map((e) => ReviewModel.fromJson(e) as ReviewEntity)
+                .toList() ??
+            [],
+      ),
       name: json['name'],
       code: json['code'],
       description: json['description'],
       price: json['price'],
-      avrageRating: getAvrageRating(json['reviews']),
       isFeatured: json['isFeatured'],
       imageUrl: json['imageUrl'],
       expiryLimit: json['expiryLimit'],
       isOrganic: json['isOrganic'],
       numberOfCalories: json['numberOfCalories'],
       unitAmount: json['unitAmount'],
-      reviews: json['reviews'].map((e) => ReviewModel.fromJson(e)).toList(),
+      reviews: json['reviews'] != null
+          ? List<ReviewModel>.from(
+              json['reviews'].map((e) => ReviewModel.fromJson(e)))
+          : [],
       sellingCount: json['sellingCount'],
     );
   }
@@ -73,7 +83,6 @@ class ProductModel {
       'code': code,
       'description': description,
       'price': price,
-      // 'image': image,
       'isFeatured': isFeatured,
       'imageUrl': imageUrl,
       'expiryLimit': expiryLimit,

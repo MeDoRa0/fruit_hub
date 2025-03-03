@@ -1,7 +1,7 @@
 
 import 'package:fruit_hub/core/entites/review_entity.dart';
 
-class ProductEntity {
+class ProductEntity  {
   final String name;
   final String code;
   final String description;

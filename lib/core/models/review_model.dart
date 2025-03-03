@@ -1,4 +1,3 @@
-
 import 'package:fruit_hub/core/entites/review_entity.dart';
 
 class ReviewModel {
@@ -18,34 +17,38 @@ class ReviewModel {
     required this.reviewDescription,
   });
 
-  factory ReviewModel.fromEntity(ReviewEntity entity) => ReviewModel(
-        name: entity.name,
-        comment: entity.comment,
-        date: entity.date,
-        image: entity.image,
-        rating: entity.rating,
-        reviewDescription: entity.reviewDescription,
-      );
+  factory ReviewModel.fromEntity(ReviewEntity reviewEntity) {
+    return ReviewModel(
+      name: reviewEntity.name,
+      comment: reviewEntity.comment,
+      date: reviewEntity.date,
+      image: reviewEntity.image,
+      rating: reviewEntity.rating,
+      reviewDescription: reviewEntity.reviewDescription,
+    );
+  }
 
-  factory ReviewModel.fromJson(Map<String, dynamic> json) => ReviewModel(
-        name: json['name'],
-        comment: json['comment'],
-        date: json['date'],
-        image: json['image'],
-        rating: json['rating'],
-        reviewDescription: json['reviewDescription'],
-      );
+  factory ReviewModel.fromJson(Map<String, dynamic> json) {
+    return ReviewModel(
+      name: json['name'],
+      comment: json['comment'],
+      date: json['date'],
+      image: json['image'],
+      rating: json['rating'],
+      reviewDescription: json['reviewDescription'],
+    );
+  }
 
-      ReviewEntity toEntity(){
-        return ReviewEntity(
-          name: name,
-          comment: comment,
-          date: date,
-          image: image,
-          rating: rating,
-          reviewDescription: reviewDescription,
-        );
-      }
+  ReviewEntity toEntity() {
+    return ReviewEntity(
+      name: name,
+      comment: comment,
+      date: date,
+      image: image,
+      rating: rating,
+      reviewDescription: reviewDescription,
+    );
+  }
 
   toJson() {
     return {

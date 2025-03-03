@@ -20,10 +20,9 @@ class ProductRepoImpl extends ProductRepo {
             'orderBy': 'sellingCount',
             'descending': true
           }) as List<Map<String, dynamic>>;
-      List<ProductModel> products =
-          data.map((e) => ProductModel.fromJson(e)).toList();
+
       List<ProductEntity> productsEntities =
-          products.map((e) => e.toEntity()).toList();
+          data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
       return Right(productsEntities);
     } on Exception catch (e) {
       return Left(
@@ -39,10 +38,9 @@ class ProductRepoImpl extends ProductRepo {
     try {
       var data = await databaseService.fetchData(
           path: BackendEndpoint.getProducts) as List<Map<String, dynamic>>;
-      List<ProductModel> products =
-          data.map((e) => ProductModel.fromJson(e)).toList();
+
       List<ProductEntity> productsEntities =
-          products.map((e) => e.toEntity()).toList();
+          data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
       return Right(productsEntities);
     } on Exception catch (e) {
       return Left(
