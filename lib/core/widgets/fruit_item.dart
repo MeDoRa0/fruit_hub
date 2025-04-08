@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/entites/product_entity.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
+import 'package:fruit_hub/core/widgets/custom_netowk_image.dart';
 
 class FruitItem extends StatelessWidget {
   const FruitItem({super.key, required this.productEntity});
@@ -35,7 +36,16 @@ class FruitItem extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Image.network(productEntity.imageUrl!),
+                productEntity.imageUrl != null
+                    ? Flexible(
+                        child: CustomNetworkImage(
+                            imageUrl: productEntity.imageUrl!),
+                      )
+                    : Container(
+                        color: Colors.grey,
+                        height: 100,
+                        width: 100,
+                      ),
                 SizedBox(
                   height: 24,
                 ),
@@ -62,7 +72,7 @@ class FruitItem extends StatelessWidget {
                           text: ' ',
                         ),
                         TextSpan(
-                          text: ' ${productEntity.unitAmount}',
+                          text: 'كيلو جرام',
                           style: AppTextStyle.font13Bold
                               .copyWith(color: AppColors.lightSecondaryColor),
                         ),

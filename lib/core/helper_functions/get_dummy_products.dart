@@ -6,8 +6,7 @@ ProductEntity getDummyProduct() {
     name: "Apple",
     price: 10,
     description: "A red apple",
-    imageUrl:
-        "https://th.bing.com/th/id/OIP.gxVIhxEKV2L4dkBjwptXjwHaHa?rs=1&pid=ImgDetMain",
+    imageUrl: null,
     isOrganic: true,
     isFeatured: true,
     numberOfCalories: 100,
