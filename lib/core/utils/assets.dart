@@ -70,6 +70,10 @@ class Assets {
   /// assets/icons/shopping-cart_fill.svg
   static const String iconsShoppingCartFill = "assets/icons/shopping-cart_fill.svg";
 
+  /// Assets for iconsTrash
+  /// assets/icons/trash.svg
+  static const String iconsTrash = "assets/icons/trash.svg";
+
   /// Assets for imagesFeaturedItemBg
   /// assets/images/featured_item_bg.svg
   static const String imagesFeaturedItemBg = "assets/images/featured_item_bg.svg";
