@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/assets.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/core/widgets/custom_netowk_image.dart';
 import 'package:fruit_hub/features/home/domain/entites/cart_item_entity.dart';
+import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/views/widgets/cart_item_action_button.dart';
 
 class CartItem extends StatelessWidget {
@@ -21,9 +23,7 @@ class CartItem extends StatelessWidget {
             height: 92,
             decoration: BoxDecoration(color: const Color(0xFFF3F5F7)),
             child: CustomNetworkImage(
-              imageUrl:
-                  'https://msfb.org/wp-content/uploads/2023/06/Placeholder_view_vector.svg.png',
-            ),
+                imageUrl: cartItemEntity.productEntity.imageUrl!),
           ),
           SizedBox(width: 17),
           Expanded(
@@ -33,10 +33,15 @@ class CartItem extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text('تفاح', style: AppTextStyle.font16Bold),
+                    Text(cartItemEntity.productEntity.name,
+                        style: AppTextStyle.font16Bold),
                     Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        context
+                            .read<CartCubit>()
+                            .deleteCartItem(cartItemEntity);
+                      },
                       child: SvgPicture.asset(
                         Assets.iconsTrash,
                       ),
@@ -44,7 +49,7 @@ class CartItem extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  '3 كيلو',
+                  '${cartItemEntity.calculateTotalWeight()}كيلو',
                   style: AppTextStyle.font13w400.copyWith(
                     color: AppColors.secondaryColor,
                   ),
@@ -54,7 +59,7 @@ class CartItem extends StatelessWidget {
                     CartItemActionButton(),
                     Spacer(),
                     Text(
-                      '60 جنيه',
+                      '${cartItemEntity.calculateTotalPrice()} جنيه',
                       style: AppTextStyle.font16Bold.copyWith(
                         color: AppColors.secondaryColor,
                       ),

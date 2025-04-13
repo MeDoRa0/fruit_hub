@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
+import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 
 class CartItemActionButton extends StatelessWidget {
   const CartItemActionButton({super.key});
@@ -17,7 +19,7 @@ class CartItemActionButton extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Text(
-          '3',
+          context.watch<CartCubit>().cartEntity.cartItems.length.toString(),
           style: AppTextStyle.font16Bold,
         ),
       ),
