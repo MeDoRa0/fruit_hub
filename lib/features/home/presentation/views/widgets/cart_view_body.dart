@@ -7,6 +7,7 @@ import 'package:fruit_hub/core/widgets/custom_divider.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/views/widgets/cart_header.dart';
 import 'package:fruit_hub/features/home/presentation/views/widgets/cart_items_list.dart';
+import 'package:fruit_hub/features/home/presentation/views/widgets/custom_cart_button.dart';
 
 class CartViewBody extends StatelessWidget {
   const CartViewBody({super.key});
@@ -58,10 +59,7 @@ class CartViewBody extends StatelessWidget {
             left: 16,
             right: 16,
             bottom: MediaQuery.sizeOf(context).height * 0.07,
-            child: CustomButton(
-                text:
-                    'الدفع  ${context.watch<CartCubit>().cartEntity.calculateTotalPrice()}  جنية',
-                onPressed: () {})),
+            child: CustomCartButton()),
       ],
     );
   }

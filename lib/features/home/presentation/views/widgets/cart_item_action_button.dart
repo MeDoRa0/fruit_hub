@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
-import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
+import 'package:fruit_hub/features/home/domain/entites/cart_item_entity.dart';
+import 'package:fruit_hub/features/home/presentation/cubits/cart_item_cubit/cart_item_cubit.dart';
 
 class CartItemActionButton extends StatelessWidget {
-  const CartItemActionButton({super.key});
+  const CartItemActionButton({super.key, required this.cartItemEntity});
+  final CartItemEntity cartItemEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +16,15 @@ class CartItemActionButton extends StatelessWidget {
         icon: Icons.add,
         iconColor: Colors.white,
         backgroundColor: AppColors.primaryColor,
-        onPressed: () {},
+        onPressed: () {
+          cartItemEntity.incrementQuantity();
+          context.read<CartItemCubit>().updateCartItem(cartItemEntity);
+        },
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Text(
-          context.watch<CartCubit>().cartEntity.cartItems.length.toString(),
+          cartItemEntity.quantity.toString(),
           style: AppTextStyle.font16Bold,
         ),
       ),
@@ -27,7 +32,10 @@ class CartItemActionButton extends StatelessWidget {
         icon: Icons.remove,
         iconColor: Color(0xFF969899),
         backgroundColor: Color(0xFFF1F1F5),
-        onPressed: () {},
+        onPressed: () {
+          cartItemEntity.decrementQuantity();
+          context.read<CartItemCubit>().updateCartItem(cartItemEntity);
+        },
       ),
     ]);
   }
@@ -47,20 +55,23 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 24,
-      height: 24,
-      padding: const EdgeInsets.all(2),
-      decoration: ShapeDecoration(
-        color: backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: 24,
+        height: 24,
+        padding: const EdgeInsets.all(2),
+        decoration: ShapeDecoration(
+          color: backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
+          ),
         ),
-      ),
-      child: FittedBox(
-        child: Icon(
-          icon,
-          color: iconColor,
+        child: FittedBox(
+          child: Icon(
+            icon,
+            color: iconColor,
+          ),
         ),
       ),
     );
