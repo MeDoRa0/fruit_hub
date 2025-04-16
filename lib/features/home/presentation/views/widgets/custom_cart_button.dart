@@ -26,6 +26,7 @@ class CustomCartButton extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text('لا يوجد منتج في السلة'),
+                    duration: Duration(seconds: 2),
                   ),
                 );
               }
