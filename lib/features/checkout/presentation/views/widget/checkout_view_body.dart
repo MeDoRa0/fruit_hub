@@ -15,6 +15,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   @override
   void initState() {
     pageController = PageController();
+    // Listen to the page controller to update the current step index
+    pageController.addListener(() {
+      setState(() {
+        currentStepIndex = pageController.page!.toInt();
+      });
+    });
     super.initState();
   }
 
@@ -24,6 +30,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     super.dispose();
   }
 
+  int currentStepIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,12 +39,15 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
       child: Column(
         children: [
           SizedBox(height: 20),
-          CheckoutSteps(),
+          CheckoutSteps(
+            currentStepIndex: currentStepIndex,
+            pageController: pageController,
+          ),
           Expanded(
             child: CheckOutStepsPageview(pageController: pageController),
           ),
           CustomButton(
-            text: 'التالي',
+            text: getNextButtonText(currentStepIndex),
             onPressed: () {
               pageController.nextPage(
                 duration: const Duration(milliseconds: 300),
@@ -48,5 +59,18 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         ],
       ),
     );
+  }
+
+  String getNextButtonText(int currentStepIndex) {
+    switch (currentStepIndex) {
+      case 0:
+        return 'التالي';
+      case 1:
+        return 'التالي';
+      case 2:
+        return ' pay with paypal  ';
+      default:
+        return 'التالي';
+    }
   }
 }

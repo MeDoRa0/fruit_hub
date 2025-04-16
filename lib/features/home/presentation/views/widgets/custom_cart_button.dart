@@ -18,7 +18,17 @@ class CustomCartButton extends StatelessWidget {
             text:
                 'الدفع  ${context.watch<CartCubit>().cartEntity.calculateTotalPrice()}  جنية',
             onPressed: () {
-              Navigator.pushNamed(context, CheckoutViews.routeName);
+              if (context.read<CartCubit>().cartEntity.cartItems.isNotEmpty) {
+                Navigator.pushNamed(context, CheckoutViews.routeName,
+                    // Pass the cart items to the CheckoutViews
+                    arguments: context.read<CartCubit>().cartEntity.cartItems);
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('لا يوجد منتج في السلة'),
+                  ),
+                );
+              }
             });
       },
     );
