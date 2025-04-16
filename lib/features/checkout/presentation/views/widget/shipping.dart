@@ -10,10 +10,13 @@ class Shipping extends StatefulWidget {
   State<Shipping> createState() => _ShippingState();
 }
 
-class _ShippingState extends State<Shipping> {
+//AutomaticKeepAliveClientMixin is used to keep the state of the widget alive when it is not visible
+class _ShippingState extends State<Shipping>
+    with AutomaticKeepAliveClientMixin {
   int selectetdIndex = -1;
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     var orderEntity = context.read<OrderEntity>();
     return Column(
       children: [
@@ -52,4 +55,9 @@ class _ShippingState extends State<Shipping> {
       ],
     );
   }
+
+  /// This method is used to keep the state of the widget alive when it is not visible
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

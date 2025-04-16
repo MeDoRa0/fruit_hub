@@ -20,12 +20,12 @@ class CheckoutSteps extends StatelessWidget {
             onTap: () {
               if (context.read<OrderEntity>().payWithCash != null) {
                 pageController.animateToPage(index,
-                    duration: const Duration(seconds: 2),
-                    curve: Curves.easeInOut);
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.fastLinearToSlowEaseIn);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    duration: Duration(seconds: 2),
+                    duration: Duration(),
                     content: Text('يرجي تحديد طريقه الدفع'),
                   ),
                 );
