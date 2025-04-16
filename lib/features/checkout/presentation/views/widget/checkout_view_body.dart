@@ -17,9 +17,10 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     pageController = PageController();
     super.initState();
   }
+
   @override
   void dispose() {
-  pageController.dispose();
+    pageController.dispose();
     super.dispose();
   }
 
@@ -36,7 +37,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
           ),
           CustomButton(
             text: 'التالي',
-            onPressed: () {},
+            onPressed: () {
+              pageController.nextPage(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.fastLinearToSlowEaseIn,
+              );
+            },
           ),
           SizedBox(height: 50),
         ],
