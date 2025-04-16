@@ -21,7 +21,7 @@ class CustomCartButton extends StatelessWidget {
               if (context.read<CartCubit>().cartEntity.cartItems.isNotEmpty) {
                 Navigator.pushNamed(context, CheckoutViews.routeName,
                     // Pass the cart items to the CheckoutViews
-                    arguments: context.read<CartCubit>().cartEntity.cartItems);
+                    arguments: context.read<CartCubit>().cartEntity);
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
