@@ -14,6 +14,10 @@ class CheckoutViewBody extends StatefulWidget {
 
 class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   late PageController pageController;
+  // This method is used to initialize the page controller and listen to its changes
+
+  ValueNotifier<AutovalidateMode> valueNotifier =
+      ValueNotifier(AutovalidateMode.disabled);
   @override
   void initState() {
     pageController = PageController();
@@ -29,10 +33,12 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   @override
   void dispose() {
     pageController.dispose();
+    valueNotifier.dispose();
     super.dispose();
   }
 
   int currentStepIndex = 0;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +52,19 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
             pageController: pageController,
           ),
           Expanded(
-            child: CheckOutStepsPageview(pageController: pageController),
+            child: CheckOutStepsPageview(
+              valueListenable: valueNotifier,
+              pageController: pageController,
+              formKey: formKey,
+            ),
           ),
           CustomButton(
             text: getNextButtonText(currentStepIndex),
             onPressed: () {
-              if (context.read<OrderEntity>().payWithCash != null) {
-                pageController.nextPage(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.fastLinearToSlowEaseIn,
-                );
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('يرجي تحديد طريقه الدفع'),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
+              if (currentStepIndex == 0) {
+                _handleShippingValidation(context);
+              } else if (currentStepIndex == 1) {
+                _handelAdressValidation(context);
               }
             },
           ),
@@ -70,6 +72,22 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         ],
       ),
     );
+  }
+
+  void _handleShippingValidation(BuildContext context) {
+    if (context.read<OrderEntity>().payWithCash != null) {
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.fastLinearToSlowEaseIn,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('يرجي تحديد طريقه الدفع'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   String getNextButtonText(int currentStepIndex) {
@@ -82,6 +100,23 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         return ' pay with paypal  ';
       default:
         return 'التالي';
+    }
+  }
+
+  void _handelAdressValidation(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.fastLinearToSlowEaseIn,
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('يرجي ملئ جميع الحقول'),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   }
 }
