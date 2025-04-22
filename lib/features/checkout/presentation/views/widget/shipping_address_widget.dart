@@ -5,7 +5,8 @@ import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/payment_item.dart';
 
 class ShippingAddressWidget extends StatelessWidget {
-  const ShippingAddressWidget({super.key});
+  const ShippingAddressWidget({super.key, required this.pageController});
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +34,17 @@ class ShippingAddressWidget extends StatelessWidget {
                   color: Color(0xFF4E5556),
                 ),
                 const SizedBox(width: 4),
-                Text(
-                  'التعديل',
-                  style: AppTextStyle.font13w400.copyWith(
-                    color: Color(0xFF4E5556),
+                GestureDetector(
+                  onTap: () {
+                    pageController.animateToPage(1,
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.fastLinearToSlowEaseIn);
+                  },
+                  child: Text(
+                    'التعديل',
+                    style: AppTextStyle.font13w400.copyWith(
+                      color: Color(0xFF4E5556),
+                    ),
                   ),
                 ),
               ],
