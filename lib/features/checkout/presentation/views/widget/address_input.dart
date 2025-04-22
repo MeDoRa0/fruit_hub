@@ -5,7 +5,8 @@ import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 
 class AddressInput extends StatelessWidget {
-  const AddressInput({super.key, required this.formKey, required this.valueListenable});
+  const AddressInput(
+      {super.key, required this.formKey, required this.valueListenable});
   final GlobalKey<FormState> formKey;
   final ValueListenable<AutovalidateMode> valueListenable;
 
@@ -16,6 +17,7 @@ class AddressInput extends StatelessWidget {
         valueListenable: valueListenable,
         builder: (context, value, child) => Form(
           key: formKey,
+          autovalidateMode: value,
           child: Column(
             children: [
               SizedBox(

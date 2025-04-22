@@ -64,7 +64,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
               if (currentStepIndex == 0) {
                 _handleShippingValidation(context);
               } else if (currentStepIndex == 1) {
-                _handelAdressValidation(context);
+                _handelAdressValidation();
               }
             },
           ),
@@ -103,7 +103,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     }
   }
 
-  void _handelAdressValidation(BuildContext context) {
+  void _handelAdressValidation() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       pageController.nextPage(
@@ -111,12 +111,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         curve: Curves.fastLinearToSlowEaseIn,
       );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('يرجي ملئ جميع الحقول'),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      valueNotifier.value = AutovalidateMode.always;
     }
   }
 }
