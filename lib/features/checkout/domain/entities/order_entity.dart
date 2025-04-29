@@ -28,4 +28,11 @@ class OrderEntity {
       return 0;
     }
   }
+  double calculateFinalTotalPrice() {
+    return cartEntity.calculateTotalPrice() +
+        calculateShippingCost() -
+        calculateShippingDiscount();
+  }
+
+ 
 }
