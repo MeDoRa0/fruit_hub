@@ -15,4 +15,10 @@ class Amount {
         currency: getCurrency(),
         details: Details.fromEntity(orderEntity),
       );
+      
+      toJson() => {
+        'total': total,
+        'currency': currency,
+        'details': details!.toJson(),
+      };
 }

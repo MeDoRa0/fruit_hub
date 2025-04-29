@@ -46,3 +46,5 @@ app.*.map.json
 
 # Ignore the file containing API keys
 android/app/google-services.json
+
+lib\core\utils\app_keys.dart

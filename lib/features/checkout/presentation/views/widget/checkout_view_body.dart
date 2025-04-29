@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
+import 'package:fruit_hub/core/utils/app_keys.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
-import 'package:fruit_hub/features/checkout/manager/add_order_cubit/add_order_cubit.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/paypal_payment_entity/paypal_payment_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/checkout_steps.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/checkout_steps_pageview.dart';
 import 'package:provider/provider.dart';
@@ -120,56 +121,16 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   }
 
   void _proccessPayment(BuildContext context) {
+    var orderEntity = context.read<OrderEntity>();
+    PaypalPaymentEntity paypalPaymentEntity =
+        PaypalPaymentEntity.fromEntity(orderEntity);
     Navigator.of(context).push(MaterialPageRoute(
       builder: (BuildContext context) => PaypalCheckoutView(
         sandboxMode: true,
-        clientId: "",
-        secretKey: "",
-        transactions: const [
-          {
-            "amount": {
-              "total": '70',
-              "currency": "USD",
-              "details": {
-                "subtotal": '70',
-                "shipping": '0',
-                "shipping_discount": 0
-              }
-            },
-            "description": "The payment transaction description.",
-            // "payment_options": {
-            //   "allowed_payment_method":
-            //       "INSTANT_FUNDING_SOURCE"
-            // },
-            "item_list": {
-              "items": [
-                {
-                  "name": "Apple",
-                  "quantity": 4,
-                  "price": '5',
-                  "currency": "USD"
-                },
-                {
-                  "name": "Pineapple",
-                  "quantity": 5,
-                  "price": '10',
-                  "currency": "USD"
-                }
-              ],
-
-              // shipping address is not required though
-              //   "shipping_address": {
-              //     "recipient_name": "tharwat",
-              //     "line1": "Alexandria",
-              //     "line2": "",
-              //     "city": "Alexandria",
-              //     "country_code": "EG",
-              //     "postal_code": "21505",
-              //     "phone": "+00000000",
-              //     "state": "Alexandria"
-              //  },
-            }
-          }
+        clientId: AppKeys.kPayPalClientId,
+        secretKey: AppKeys.kPayPalSecretKey,
+        transactions:  [
+         paypalPaymentEntity.toJson(),
         ],
         note: "Contact us for any questions on your order.",
         onSuccess: (Map params) async {
