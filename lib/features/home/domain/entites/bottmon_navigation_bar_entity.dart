@@ -23,7 +23,8 @@ List<BottmonNavigationBarEntity> get bottomNavigationBarItems => [
           inActiveIcon: Assets.iconsShoppingCart,
           label: 'سلة التسوق'),
       BottmonNavigationBarEntity(
-          activeIcon: Assets.iconsProfileFill,
-          inActiveIcon: Assets.iconsProfile,
-          label: 'حسابي',),
+        activeIcon: Assets.iconsProfileFill,
+        inActiveIcon: Assets.iconsProfile,
+        label: 'حسابي',
+      ),
     ];

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/core/widgets/notification_icon_widget.dart';
 
-AppBar buildAppBar(BuildContext context, {required String title,bool showBackButton = true,bool showNotificationIcon = true}) {
+AppBar buildAppBar(BuildContext context,
+    {required String title,
+    bool showBackButton = true,
+    bool showNotificationIcon = true}) {
   return AppBar(
     actions: [
       Visibility(

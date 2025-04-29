@@ -51,8 +51,8 @@ class PageViewItem extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {
                       //set the value of isOnBoardingViewSeen to true so the app will not show the onBoardingView again
-                      SharedPreferencesSingleton
-                          .setBool(kIsOnBoardingViewSeen, true);
+                      SharedPreferencesSingleton.setBool(
+                          kIsOnBoardingViewSeen, true);
                       Navigator.of(context)
                           .pushReplacementNamed(LoginView.routeName);
                     },

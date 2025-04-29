@@ -4,7 +4,7 @@ import 'package:fruit_hub/core/utils/text_styles.dart';
 
 class CheckoutActiveStepsItem extends StatelessWidget {
   const CheckoutActiveStepsItem({super.key, required this.text});
-  final String text ;
+  final String text;
 
   @override
   Widget build(BuildContext context) {

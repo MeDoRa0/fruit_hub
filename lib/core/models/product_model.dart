@@ -1,4 +1,3 @@
-
 import 'package:fruit_hub/core/entites/product_entity.dart';
 import 'package:fruit_hub/core/entites/review_entity.dart';
 import 'package:fruit_hub/core/helper_functions/get_avarage_rating.dart';
@@ -29,7 +28,7 @@ class ProductModel {
       required this.avrageRating,
       required this.isFeatured,
       required this.reviews,
-       this.imageUrl,
+      this.imageUrl,
       this.sellingCount = 0,
       required this.expiryLimit,
       this.isOrganic = false,

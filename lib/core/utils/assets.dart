@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+
   /// Assets for iconsAppleLogo
   /// assets/icons/apple_logo.svg
   static const String iconsAppleLogo = "assets/icons/apple_logo.svg";
@@ -68,7 +68,8 @@ class Assets {
 
   /// Assets for iconsShoppingCartFill
   /// assets/icons/shopping-cart_fill.svg
-  static const String iconsShoppingCartFill = "assets/icons/shopping-cart_fill.svg";
+  static const String iconsShoppingCartFill =
+      "assets/icons/shopping-cart_fill.svg";
 
   /// Assets for iconsTrash
   /// assets/icons/trash.svg
@@ -76,7 +77,8 @@ class Assets {
 
   /// Assets for imagesFeaturedItemBg
   /// assets/images/featured_item_bg.svg
-  static const String imagesFeaturedItemBg = "assets/images/featured_item_bg.svg";
+  static const String imagesFeaturedItemBg =
+      "assets/images/featured_item_bg.svg";
 
   /// Assets for imagesFruit
   /// assets/images/fruit.png
@@ -104,11 +106,13 @@ class Assets {
 
   /// Assets for imagesOnboardingImage1
   /// assets/images/onboarding_image_1.svg
-  static const String imagesOnboardingImage1 = "assets/images/onboarding_image_1.svg";
+  static const String imagesOnboardingImage1 =
+      "assets/images/onboarding_image_1.svg";
 
   /// Assets for imagesOnboardingImage2
   /// assets/images/onboarding_image_2.svg
-  static const String imagesOnboardingImage2 = "assets/images/onboarding_image_2.svg";
+  static const String imagesOnboardingImage2 =
+      "assets/images/onboarding_image_2.svg";
 
   /// Assets for imagesProfile
   /// assets/images/profile.png
@@ -122,4 +126,3 @@ class Assets {
   /// assets/images/splash_logo.svg
   static const String imagesSplashLogo = "assets/images/splash_logo.svg";
 }
-

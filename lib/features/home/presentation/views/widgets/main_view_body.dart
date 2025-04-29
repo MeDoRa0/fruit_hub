@@ -17,7 +17,7 @@ class MainViewBody extends StatelessWidget {
       // IndexedStack is a widget that allows you to display one child at a time based on the index
       // It is used to switch between different views in the app
       // without rebuilding the entire widget tree
-    
+
       index: currentViewIndex,
       children: [
         HomeView(),

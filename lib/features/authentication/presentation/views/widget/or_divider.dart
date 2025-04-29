@@ -25,7 +25,6 @@ class OrDivider extends StatelessWidget {
             color: Color(0xFFDCDEDE),
           ),
         ),
-        
       ],
     );
   }

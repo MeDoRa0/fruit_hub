@@ -9,6 +9,4 @@ class CartItemCubit extends Cubit<CartItemState> {
   void updateCartItem(CartItemEntity cartItemEntity) {
     emit(CartItemUpdated(cartItemEntity));
   }
-
-
 }

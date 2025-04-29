@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 abstract class AppTextStyle {
   // Font Family
-  static const String fontFamily = 'Cairo'; // Make sure this is the name of your font family in pubspec.yaml
+  static const String fontFamily =
+      'Cairo'; // Make sure this is the name of your font family in pubspec.yaml
 
   // Headings
   static TextStyle heading1Regular = const TextStyle(
@@ -11,7 +12,6 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w400, // Regular
     height: 1.4, // 140% line height
     letterSpacing: 0,
-    
   );
 
   static TextStyle heading1Bold = const TextStyle(
@@ -28,7 +28,6 @@ abstract class AppTextStyle {
     fontWeight: FontWeight.w400,
     height: 1.4,
     letterSpacing: 0,
-    
   );
 
   static TextStyle heading2Bold = const TextStyle(
@@ -55,7 +54,7 @@ abstract class AppTextStyle {
     letterSpacing: 0,
   );
 
-    static TextStyle heading4Regular = const TextStyle(
+  static TextStyle heading4Regular = const TextStyle(
     fontFamily: fontFamily,
     fontSize: 28,
     fontWeight: FontWeight.w400,
@@ -87,7 +86,6 @@ abstract class AppTextStyle {
     letterSpacing: 0,
   );
 
-
   // Body Text Styles
   static TextStyle bodyLargeRegular = const TextStyle(
     fontFamily: fontFamily,
@@ -97,7 +95,7 @@ abstract class AppTextStyle {
     letterSpacing: 0,
   );
 
-    static TextStyle font19Bold = const TextStyle(
+  static TextStyle font19Bold = const TextStyle(
     fontFamily: fontFamily,
     fontSize: 19, // Corrected to 19px as per image. It was 15px by mistake.
     fontWeight: FontWeight.bold,
@@ -111,7 +109,6 @@ abstract class AppTextStyle {
     height: 1.4,
     letterSpacing: 0,
   );
-
 
   static TextStyle font16Regular = const TextStyle(
     fontFamily: fontFamily,
@@ -145,7 +142,7 @@ abstract class AppTextStyle {
     letterSpacing: 0,
   );
 
-    static TextStyle font13w600 = const TextStyle(
+  static TextStyle font13w600 = const TextStyle(
     fontFamily: fontFamily,
     fontSize: 13,
     fontWeight: FontWeight.w600,

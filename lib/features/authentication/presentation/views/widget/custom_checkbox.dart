@@ -4,7 +4,8 @@ import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/assets.dart';
 
 class CustomCheckbox extends StatelessWidget {
-  const CustomCheckbox({super.key, required this.isChecked, required this.onChecked});
+  const CustomCheckbox(
+      {super.key, required this.isChecked, required this.onChecked});
 
   final bool isChecked;
   final ValueChanged<bool> onChecked;

@@ -13,6 +13,7 @@ class CartEntity {
     }
     return totalPrice;
   }
+
   bool isProductInCart(ProductEntity product) {
     for (var cartItem in cartItems) {
       if (cartItem.productEntity == product) {
@@ -34,7 +35,8 @@ class CartEntity {
   addItemTocart(CartItemEntity cartItemEntity) {
     cartItems.add(cartItemEntity);
   }
-  removeItemFromCart(CartItemEntity  cartItemEntity) {
+
+  removeItemFromCart(CartItemEntity cartItemEntity) {
     cartItems.remove(cartItemEntity);
   }
 }

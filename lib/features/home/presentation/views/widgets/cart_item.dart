@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,7 +32,6 @@ class CartItem extends StatelessWidget {
         return false;
       },
       builder: (context, state) {
-       
         return IntrinsicHeight(
           child: Row(
             children: [

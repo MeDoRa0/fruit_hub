@@ -15,7 +15,6 @@ class ActiveShippingItemDot extends StatelessWidget {
           side: BorderSide(width: 4, color: Colors.white),
         ),
       ),
-      
     );
   }
 }

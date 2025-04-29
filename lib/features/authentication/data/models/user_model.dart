@@ -21,7 +21,7 @@ class UserModel extends UserEntity {
       uId: json['uId'],
     );
   }
-   // toMap method
+  // toMap method
   toMap() {
     return {
       'name': name,
@@ -29,7 +29,6 @@ class UserModel extends UserEntity {
       'uId': uId,
     };
   }
-
 
   factory UserModel.fromEntity(UserEntity user) {
     return UserModel(

@@ -30,6 +30,4 @@ class SignupViewBlocConsumer extends StatelessWidget {
       },
     );
   }
-
-  
 }

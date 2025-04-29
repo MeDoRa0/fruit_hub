@@ -8,7 +8,8 @@ class CheckOutStepsPageview extends StatelessWidget {
   const CheckOutStepsPageview({
     super.key,
     required this.pageController,
-    required this.formKey, required this.valueListenable,
+    required this.formKey,
+    required this.valueListenable,
   });
 
   final PageController pageController;
@@ -35,9 +36,11 @@ class CheckOutStepsPageview extends StatelessWidget {
       Shipping(),
       AddressInput(
         formKey: formKey,
-        valueListenable:  valueListenable,
+        valueListenable: valueListenable,
       ),
-      PaymentSection(pageController: pageController,),
+      PaymentSection(
+        pageController: pageController,
+      ),
     ];
   }
 }

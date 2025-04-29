@@ -8,8 +8,4 @@ class UserEntity {
     required this.email,
     required this.uId,
   });
-
-  
-
-
 }

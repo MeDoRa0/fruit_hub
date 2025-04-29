@@ -7,8 +7,8 @@ abstract class DatabaseService {
   //this method is used to fetch data from the database
   Future<dynamic> fetchData({
     required String path,
-     String? docID,
-     Map<String, dynamic>? query,
+    String? docID,
+    Map<String, dynamic>? query,
   });
 
   Future<bool> checkIfDataExists({

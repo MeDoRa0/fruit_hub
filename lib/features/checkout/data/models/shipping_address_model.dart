@@ -18,7 +18,8 @@ class ShippingAddressModel {
     this.apartmentNumber,
     this.floorNumber,
   });
-  factory ShippingAddressModel.fromEntity(ShippingAddressEntity shippingAddressEntity){ 
+  factory ShippingAddressModel.fromEntity(
+      ShippingAddressEntity shippingAddressEntity) {
     return ShippingAddressModel(
       name: shippingAddressEntity.name,
       address: shippingAddressEntity.address,
@@ -28,9 +29,7 @@ class ShippingAddressModel {
       apartmentNumber: shippingAddressEntity.apartmentNumber,
       floorNumber: shippingAddressEntity.floorNumber,
     );
-    
   }
-  
 
   @override
   String toString() {
@@ -47,5 +46,5 @@ class ShippingAddressModel {
       'apartmentNumber': apartmentNumber,
       'floorNumber': floorNumber,
     };
-  } 
+  }
 }
