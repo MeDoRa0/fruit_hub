@@ -13,9 +13,8 @@ class PaypalPaymentEntity {
   factory PaypalPaymentEntity.fromEntity(OrderEntity orderEntity) {
     return PaypalPaymentEntity(
       amount: Amount.fromEntity(orderEntity),
-      description: orderEntity.cartEntity.calculateTotalPrice().toString(),
+      description: 'Payment description',
       itemList: ItemList.fromEntity(orderEntity.cartEntity.cartItems),
-     
     );
   }
   toJson() => {

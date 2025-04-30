@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
+import 'package:fruit_hub/core/helper_functions/build_error_bar.dart';
 import 'package:fruit_hub/core/utils/app_keys.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/paypal_payment_entity/paypal_payment_entity.dart';
+import 'package:fruit_hub/features/checkout/manager/add_order_cubit/add_order_cubit.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/checkout_steps.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/checkout_steps_pageview.dart';
 import 'package:provider/provider.dart';
@@ -124,21 +128,25 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     var orderEntity = context.read<OrderEntity>();
     PaypalPaymentEntity paypalPaymentEntity =
         PaypalPaymentEntity.fromEntity(orderEntity);
+    var addOrderCubit = context.read<AddOrderCubit>();
+    log(paypalPaymentEntity.toJson().toString());
     Navigator.of(context).push(MaterialPageRoute(
       builder: (BuildContext context) => PaypalCheckoutView(
         sandboxMode: true,
         clientId: AppKeys.kPayPalClientId,
         secretKey: AppKeys.kPayPalSecretKey,
-        transactions:  [
-         paypalPaymentEntity.toJson(),
+        transactions: [
+          paypalPaymentEntity.toJson(),
         ],
         note: "Contact us for any questions on your order.",
         onSuccess: (Map params) async {
           print("onSuccess: $params");
+          addOrderCubit.addOrder(order: orderEntity);
         },
         onError: (error) {
-          print("onError: $error");
           Navigator.pop(context);
+          log(error.toString());
+          buildErrorBar(context, error.toString());
         },
         onCancel: () {
           print('cancelled:');

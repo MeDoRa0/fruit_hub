@@ -3,10 +3,9 @@ import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
 class Details {
   String? subtotal;
   String? shipping;
-  int? shippingDiscount;
+  double? shippingDiscount;
 
   Details({this.subtotal, this.shipping, this.shippingDiscount});
-
 
   Map<String, dynamic> toJson() => {
         'subtotal': subtotal,
@@ -16,6 +15,6 @@ class Details {
   factory Details.fromEntity(OrderEntity orderEntity) => Details(
         subtotal: orderEntity.cartEntity.calculateTotalPrice().toString(),
         shipping: orderEntity.calculateShippingCost().toString(),
-        shippingDiscount: orderEntity.calculateShippingDiscount().toInt(),
+        shippingDiscount: orderEntity.calculateShippingDiscount(),
       );
 }

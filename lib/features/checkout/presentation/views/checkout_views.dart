@@ -12,10 +12,23 @@ import 'package:fruit_hub/features/checkout/presentation/views/widget/checkout_v
 import 'package:fruit_hub/features/home/domain/entites/cart_entity.dart';
 import 'package:provider/provider.dart';
 
-class CheckoutViews extends StatelessWidget {
+class CheckoutViews extends StatefulWidget {
   const CheckoutViews({super.key, required this.cartEntity});
   static const String routeName = 'checkout';
   final CartEntity cartEntity;
+
+  @override
+  State<CheckoutViews> createState() => _CheckoutViewsState();
+}
+
+class _CheckoutViewsState extends State<CheckoutViews> {
+  late OrderEntity orderEntity;
+  @override
+  void initState() {
+    super.initState();
+    orderEntity = OrderEntity(widget.cartEntity,
+        shippingAddressEntity: ShippingAddressEntity(), uID: getUser().uId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +48,7 @@ class CheckoutViews extends StatelessWidget {
           // This allows the CheckoutViewBody to access the cart items
           // through the OrderEntity
           // without needing to pass them directly
-          value: OrderEntity(cartEntity,
-              shippingAddressEntity: ShippingAddressEntity(),
-              uID: getUser().uId),
+          value: orderEntity,
           child: AddOrderCubitBlocbuilder(
             child: CheckoutViewBody(),
           ),
