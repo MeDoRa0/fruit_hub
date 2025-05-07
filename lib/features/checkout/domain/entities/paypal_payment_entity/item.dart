@@ -18,7 +18,7 @@ class ItemEntity {
       factory ItemEntity.fromEntity(CartItemEntity cartItemEntity) => ItemEntity(
         name: cartItemEntity.productEntity.name,
         quantity: cartItemEntity.quantity,
-        price: cartItemEntity.productEntity.price.toString(),
+        price: cartItemEntity.productEntity.price.toStringAsFixed(2),
         currency: getCurrency(),
       );
 }

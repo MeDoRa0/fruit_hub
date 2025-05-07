@@ -11,6 +11,7 @@ class OrderSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderEntity = context.read<OrderEntity>();
     return PaymentItem(
       title: 'ملخص الطلب ',
       child: Column(
@@ -65,10 +66,8 @@ class OrderSummaryWidget extends StatelessWidget {
             children: [
               Text('الكلي', style: AppTextStyle.font16Bold),
               Spacer(),
-              Text(
-                  '${context.read<OrderEntity>().cartEntity.calculateTotalPrice() + 30} جنيه',
-                  textAlign: TextAlign.right,
-                  style: AppTextStyle.font16Bold),
+              Text('${orderEntity.calculateFinalTotalPrice()} جنيه',
+                  textAlign: TextAlign.right, style: AppTextStyle.font16Bold),
             ],
           ),
         ],

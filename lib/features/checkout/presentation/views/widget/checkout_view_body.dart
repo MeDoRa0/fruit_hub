@@ -55,6 +55,29 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         children: [
           SizedBox(height: 20),
           CheckoutSteps(
+            onTap: (index) {
+              if (currentStepIndex == 0) {
+                pageController.animateToPage(index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.fastLinearToSlowEaseIn);
+              } else if (index == 1) {
+                var orderEntity = context.read<OrderEntity>();
+                if (orderEntity.payWithCash != null) {
+                  pageController.animateToPage(index,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.fastLinearToSlowEaseIn);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(),
+                      content: Text('يرجي تحديد طريقه الدفع'),
+                    ),
+                  );
+                }
+              } else {
+                _handelAdressValidation();
+              }
+            },
             currentStepIndex: currentStepIndex,
             pageController: pageController,
           ),
@@ -129,7 +152,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
     PaypalPaymentEntity paypalPaymentEntity =
         PaypalPaymentEntity.fromEntity(orderEntity);
     var addOrderCubit = context.read<AddOrderCubit>();
-    log(paypalPaymentEntity.toJson().toString());
+    log("🧾 PAYPAL TRANSACTION DATA: ${paypalPaymentEntity.toJson()}");
+    //log(paypalPaymentEntity.toJson().toString());
     Navigator.of(context).push(MaterialPageRoute(
       builder: (BuildContext context) => PaypalCheckoutView(
         sandboxMode: true,
@@ -145,7 +169,8 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
         },
         onError: (error) {
           Navigator.pop(context);
-          log(error.toString());
+          // log(error.toString());
+          log(" PayPal Payment Error: $error");
           buildErrorBar(context, error.toString());
         },
         onCancel: () {

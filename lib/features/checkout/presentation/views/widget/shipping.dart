@@ -32,9 +32,7 @@ class _ShippingState extends State<Shipping>
           isSelected: selectetdIndex == 0,
           title: 'الدفع عند الاستلام',
           subTitle: ' الدفع  عند استلام الطلب',
-          price: (context.read<OrderEntity>().cartEntity.calculateTotalPrice() +
-                  30)
-              .toString(),
+          price: orderEntity.calculateFinalTotalPrice().toString(),
         ),
         SizedBox(
           height: 16,
@@ -48,11 +46,7 @@ class _ShippingState extends State<Shipping>
           isSelected: selectetdIndex == 1,
           title: 'إدفع الان ',
           subTitle: 'يرجي تحديد طريقه الدفع',
-          price: context
-              .read<OrderEntity>()
-              .cartEntity
-              .calculateTotalPrice()
-              .toString(),
+          price: orderEntity.calculateFinalTotalPrice().toString(),
         ),
       ],
     );

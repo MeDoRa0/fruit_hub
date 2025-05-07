@@ -21,18 +21,18 @@ class OrderEntity {
       return 30;
     }
   }
+
   double calculateShippingDiscount() {
     if (cartEntity.calculateTotalPrice() > 100) {
-      return 10;
+      return 0;
     } else {
       return 0;
     }
   }
+
   double calculateFinalTotalPrice() {
     return cartEntity.calculateTotalPrice() +
         calculateShippingCost() -
         calculateShippingDiscount();
   }
-
- 
 }
