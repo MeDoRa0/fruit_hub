@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/widgets/custom_text_form_field.dart';
-import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_input_entity.dart';
 
 class AddressInput extends StatelessWidget {
   const AddressInput(
@@ -25,7 +25,7 @@ class AddressInput extends StatelessWidget {
               ),
               CustomTextFormField(
                 onSaved: (value) {
-                  context.read<OrderEntity>().shippingAddressEntity.name =
+                  context.read<OrderInputEntity>().shippingAddressEntity.name =
                       value!;
                 },
                 hintText: 'الاسم الكامل',
@@ -36,7 +36,7 @@ class AddressInput extends StatelessWidget {
               ),
               CustomTextFormField(
                 onSaved: (value) {
-                  context.read<OrderEntity>().shippingAddressEntity.email =
+                  context.read<OrderInputEntity>().shippingAddressEntity.email =
                       value!;
                 },
                 hintText: 'البريد الالكتروني',
@@ -47,7 +47,7 @@ class AddressInput extends StatelessWidget {
               ),
               CustomTextFormField(
                 onSaved: (value) {
-                  context.read<OrderEntity>().shippingAddressEntity.phone =
+                  context.read<OrderInputEntity>().shippingAddressEntity.phone =
                       value!;
                 },
                 hintText: 'رقم الهاتف',
@@ -58,8 +58,10 @@ class AddressInput extends StatelessWidget {
               ),
               CustomTextFormField(
                 onSaved: (value) {
-                  context.read<OrderEntity>().shippingAddressEntity.address =
-                      value!;
+                  context
+                      .read<OrderInputEntity>()
+                      .shippingAddressEntity
+                      .address = value!;
                 },
                 hintText: 'العنوان',
                 keyboardType: TextInputType.streetAddress,
@@ -69,7 +71,7 @@ class AddressInput extends StatelessWidget {
               ),
               CustomTextFormField(
                 onSaved: (value) {
-                  context.read<OrderEntity>().shippingAddressEntity.city =
+                  context.read<OrderInputEntity>().shippingAddressEntity.city =
                       value!;
                 },
                 hintText: 'المدينة',
@@ -81,7 +83,7 @@ class AddressInput extends StatelessWidget {
               CustomTextFormField(
                 onSaved: (value) {
                   context
-                      .read<OrderEntity>()
+                      .read<OrderInputEntity>()
                       .shippingAddressEntity
                       .floorNumber = value!;
                 },
@@ -94,7 +96,7 @@ class AddressInput extends StatelessWidget {
               CustomTextFormField(
                 onSaved: (value) {
                   context
-                      .read<OrderEntity>()
+                      .read<OrderInputEntity>()
                       .shippingAddressEntity
                       .apartmentNumber = value!;
                 },

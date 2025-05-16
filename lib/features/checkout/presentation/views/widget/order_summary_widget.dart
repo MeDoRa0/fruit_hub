@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
-import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_input_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/payment_item.dart';
 
 class OrderSummaryWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class OrderSummaryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderEntity = context.read<OrderEntity>();
+    final orderEntity = context.read<OrderInputEntity>();
     return PaymentItem(
       title: 'ملخص الطلب ',
       child: Column(
@@ -26,7 +26,7 @@ class OrderSummaryWidget extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                  '${context.read<OrderEntity>().cartEntity.calculateTotalPrice()} جنيه',
+                  '${context.read<OrderInputEntity>().cartEntity.calculateTotalPrice()} جنيه',
                   textAlign: TextAlign.right,
                   style: AppTextStyle.font16SemiBold)
             ],

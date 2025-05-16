@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
-import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_input_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/payment_item.dart';
 
 class ShippingAddressWidget extends StatelessWidget {
@@ -19,7 +19,7 @@ class ShippingAddressWidget extends StatelessWidget {
               width: 8,
             ),
             Text(
-              '${context.read<OrderEntity>().shippingAddressEntity}',
+              '${context.read<OrderInputEntity>().shippingAddressEntity}',
               style: AppTextStyle.font13w400.copyWith(
                 color: Color(0xFF4E5556),
               ),

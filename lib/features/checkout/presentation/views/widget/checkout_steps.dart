@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_input_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/step_item.dart';
 
 class CheckoutSteps extends StatelessWidget {

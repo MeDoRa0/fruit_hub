@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_input_entity.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/shipping_item.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +17,7 @@ class _ShippingState extends State<Shipping>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    var orderEntity = context.read<OrderEntity>();
+    var orderEntity = context.read<OrderInputEntity>();
     return Column(
       children: [
         SizedBox(

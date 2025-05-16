@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fruit_hub/core/repos/order_repo/order_repo.dart';
-import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_input_entity.dart';
 
 part 'add_order_state.dart';
 
@@ -10,7 +10,7 @@ class AddOrderCubit extends Cubit<AddOrderState> {
 
   final OrderRepo orderRepo;
 
-  void addOrder({required OrderEntity order}) async {
+  void addOrder({required OrderInputEntity order}) async {
     emit(AddOrderLoading());
     final result = await orderRepo.addOrder(orderEntity: order);
     result.fold(

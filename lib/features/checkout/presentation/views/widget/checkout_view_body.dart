@@ -5,7 +5,7 @@ import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:fruit_hub/core/helper_functions/build_error_bar.dart';
 import 'package:fruit_hub/core/utils/app_keys.dart';
 import 'package:fruit_hub/core/widgets/custom_button.dart';
-import 'package:fruit_hub/features/checkout/domain/entities/order_entity.dart';
+import 'package:fruit_hub/features/checkout/domain/entities/order_input_entity.dart';
 import 'package:fruit_hub/features/checkout/domain/entities/paypal_payment_entity/paypal_payment_entity.dart';
 import 'package:fruit_hub/features/checkout/manager/add_order_cubit/add_order_cubit.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/checkout_steps.dart';
@@ -61,7 +61,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.fastLinearToSlowEaseIn);
               } else if (index == 1) {
-                var orderEntity = context.read<OrderEntity>();
+                var orderEntity = context.read<OrderInputEntity>();
                 if (orderEntity.payWithCash != null) {
                   pageController.animateToPage(index,
                       duration: const Duration(milliseconds: 300),
@@ -107,7 +107,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   }
 
   void _handleShippingValidation(BuildContext context) {
-    if (context.read<OrderEntity>().payWithCash != null) {
+    if (context.read<OrderInputEntity>().payWithCash != null) {
       pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.fastLinearToSlowEaseIn,
@@ -148,7 +148,7 @@ class _CheckoutViewBodyState extends State<CheckoutViewBody> {
   }
 
   void _proccessPayment(BuildContext context) {
-    var orderEntity = context.read<OrderEntity>();
+    var orderEntity = context.read<OrderInputEntity>();
     PaypalPaymentEntity paypalPaymentEntity =
         PaypalPaymentEntity.fromEntity(orderEntity);
     var addOrderCubit = context.read<AddOrderCubit>();
