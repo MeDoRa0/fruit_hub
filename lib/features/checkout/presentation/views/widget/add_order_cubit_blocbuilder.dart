@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/widgets/custom_progress_hud.dart';
 import 'package:fruit_hub/features/checkout/manager/add_order_cubit/add_order_cubit.dart';
+import 'package:fruit_hub/features/checkout/presentation/views/widget/purshaes_success_screen.dart';
 
 class AddOrderCubitBlocbuilder extends StatelessWidget {
   const AddOrderCubitBlocbuilder({super.key, required this.child});
@@ -25,6 +26,7 @@ class AddOrderCubitBlocbuilder extends StatelessWidget {
               backgroundColor: Colors.green,
             ),
           );
+          Navigator.pushNamed(context, PurchaseSuccessScreen.routeName);
         }
       },
       builder: (context, state) {
