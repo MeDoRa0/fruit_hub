@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/login_view.dart';
 import 'package:fruit_hub/features/authentication/presentation/views/signup_view.dart';
-import 'package:fruit_hub/features/best_selling_fruits.dart/views/best_selling_view.dart';
+import 'package:fruit_hub/features/best_selling_fruits/views/best_selling_view.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/checkout_views.dart';
 import 'package:fruit_hub/features/checkout/presentation/views/widget/purshaes_success_screen.dart';
 import 'package:fruit_hub/features/home/domain/entites/cart_entity.dart';

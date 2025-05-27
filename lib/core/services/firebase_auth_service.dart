@@ -9,6 +9,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class FirebaseAuthService {
+
+ User? get currentUser => FirebaseAuth.instance.currentUser;
   //create user with email and password
   Future<User> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
