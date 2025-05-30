@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/core/utils/assets.dart';
 import '../../../../../core/utils/text_styles.dart';
+import 'favorites_view.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
+   // final userId = getIt<FirebaseAuthService>().currentUser!.uid;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -15,10 +18,9 @@ class ProfileViewBody extends StatelessWidget {
             // Profile Header
             Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 40,
-                  backgroundImage:
-                      AssetImage('assets/images/profile_placeholder.png'),
+                  backgroundImage: AssetImage(Assets.imagesProfile),
                 ),
                 const SizedBox(width: 20),
                 Column(
@@ -50,6 +52,14 @@ class ProfileViewBody extends StatelessWidget {
               icon: Icons.shopping_bag_outlined,
               title: 'My Orders',
               onTap: () {},
+            ),
+            _buildProfileOption(
+              context,
+              icon: Icons.favorite_border_outlined,
+              title: 'Favorites',
+              onTap: () {
+                Navigator.pushNamed(context, FavoritesView.routeName);
+              },
             ),
             _buildProfileOption(
               context,
@@ -100,21 +110,32 @@ class ProfileViewBody extends StatelessWidget {
     required String title,
     required VoidCallback onTap,
   }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey.shade300,
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
       child: InkWell(
         onTap: onTap,
-        child: Row(
-          children: [
-            Icon(icon, size: 24),
-            const SizedBox(width: 16),
-            Text(
-              title,
-              style: AppTextStyle.font16SemiBold,
-            ),
-            const Spacer(),
-            const Icon(Icons.arrow_forward_ios, size: 16),
-          ],
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(icon, size: 24),
+              const SizedBox(width: 16),
+              Text(
+                title,
+                style: AppTextStyle.font16SemiBold,
+              ),
+              const Spacer(),
+              const Icon(Icons.arrow_forward_ios, size: 16),
+            ],
+          ),
         ),
       ),
     );

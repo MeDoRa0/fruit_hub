@@ -1,13 +1,15 @@
+import 'package:fruit_hub/features/home/domain/entites/favorite_entity.dart';
+
 abstract class FavoriteState {}
 
 class FavoriteInitial extends FavoriteState {}
 
 class FavoriteLoading extends FavoriteState {}
 
-class FavoriteLoaded extends FavoriteState {
-  final List<String> favorites;
+class Favoritesuccess extends FavoriteState {
+  final List<FavoriteEntity> favorites;
 
-  FavoriteLoaded(this.favorites);
+  Favoritesuccess(this.favorites);
 }
 
 class FavoriteError extends FavoriteState {

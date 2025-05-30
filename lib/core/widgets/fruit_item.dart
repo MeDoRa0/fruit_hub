@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/entites/product_entity.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/core/widgets/custom_netowk_image.dart';
+import 'package:fruit_hub/features/home/domain/entites/favorite_entity.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_state.dart';
@@ -94,14 +96,28 @@ class FruitItem extends StatelessWidget {
             child: BlocBuilder<FavoritesCubit, FavoriteState>(
               builder: (context, state) {
                 bool isFavorite = false;
-                if (state is FavoriteLoaded) {
-                  isFavorite = state.favorites.contains(productEntity.productId);
+
+                if (state is Favoritesuccess) {
+                  isFavorite = state.favorites
+                      .any((fav) => fav.productId == productEntity.productId);
                 }
+
                 return IconButton(
                   onPressed: () {
-                    context.read<FavoritesCubit>().toggleFavorite(productEntity.productId);
+                    final userId = FirebaseAuth.instance.currentUser?.uid;
+                    if (userId == null) return;
+
+                    final favoriteEntity = FavoriteEntity(
+                      productId: productEntity.productId,
+                      userId: userId,
+                    );
+
+                    context.read<FavoritesCubit>().toggleFavorite(
+                          favoriteEntity: favoriteEntity,
+                        );
                   },
-                  icon: Icon(isFavorite? Icons.favorite : Icons.favorite_border, 
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
                     color: isFavorite ? Colors.red : Colors.grey,
                   ),
                 );

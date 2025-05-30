@@ -1,3 +1,4 @@
+import 'package:fruit_hub/core/repos/favorite_repo/favorite_repo_impl.dart';
 import 'package:fruit_hub/core/repos/order_repo/order_repo.dart';
 import 'package:fruit_hub/core/repos/order_repo/order_repo_impl.dart';
 import 'package:fruit_hub/core/repos/products_repo/product_repo.dart';
@@ -42,10 +43,12 @@ void setupGetit() {
 
   getIt.registerLazySingleton<FirestoreService>(() => FirestoreService());
 
-  getIt.registerFactoryParam<FavoritesCubit, String, void>(
+    getIt.registerFactoryParam<FavoritesCubit, String, void>(
     (userId, _) => FavoritesCubit(
-      firestoreService: getIt<FirestoreService>(),
-      userId: userId,
-    ),
+      FavoriteRepoImpl(getIt<DatabaseService>()),
+    )..loadFavorites(userId),
   );
+
+
+  
 }

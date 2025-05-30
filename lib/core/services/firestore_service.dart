@@ -10,7 +10,7 @@ class FirestoreService implements DatabaseService {
       required Map<String, dynamic> data,
       String? docID}) async {
     if (docID != null) {
-      firestore.collection(path).doc(docID).set(data);
+    await  firestore.collection(path).doc(docID).set(data);
     } else {
       await firestore.collection(path).add(data);
     }
@@ -50,38 +50,12 @@ class FirestoreService implements DatabaseService {
     var data = await firestore.collection(path).doc(docID).get();
     return data.exists;
   }
- // ✅ Toggle Favorite (add/remove)
-  Future<void> toggleFavorite({
-    required String userId,
-    required String productId,
-  }) async {
-    final userRef = firestore.collection('users').doc(userId);
-    final snapshot = await userRef.get();
-
-    List<String> favorites = [];
-    if (snapshot.exists && snapshot.data()?['favorites'] != null) {
-      favorites = List<String>.from(snapshot.data()!['favorites']);
-    }
-
-    if (favorites.contains(productId)) {
-      favorites.remove(productId);
-    } else {
-      favorites.add(productId);
-    }
-
-    await userRef.set({'favorites': favorites}, SetOptions(merge: true));
+  
+  @override
+  Future<void> deleteData({required String path, required String docID})async {
+    await firestore.collection(path).doc(docID).delete();
+   
   }
 
-  // ✅ Get User's Favorite List
-  Future<List<String>> getFavorites(String userId) async {
-    final userRef = firestore.collection('users').doc(userId);
-    final snapshot = await userRef.get();
-
-    if (snapshot.exists && snapshot.data()?['favorites'] != null) {
-      return List<String>.from(snapshot.data()!['favorites']);
-    } else {
-      return [];
-    }
-  }
   
 }
