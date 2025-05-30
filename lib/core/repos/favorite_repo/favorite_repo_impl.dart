@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:fruit_hub/core/entites/product_entity.dart';
 import 'package:fruit_hub/core/errors/failuers.dart';
+import 'package:fruit_hub/core/models/product_model.dart';
 import 'package:fruit_hub/core/repos/favorite_repo/favorite_repo.dart';
 import 'package:fruit_hub/core/services/database_service.dart';
 import 'package:fruit_hub/core/utils/backend_endpoint.dart';
@@ -61,4 +63,25 @@ class FavoriteRepoImpl extends FavoriteRepo {
       return Left(ServerFailuer(message: e.toString()));
     }
   }
+
+  @override
+Future<Either<Failuers, List<ProductEntity>>> getFavoriteProductsByIds(
+    List<String> productIds) async {
+  try {
+    final data = await databaseService.fetchWhereIn(
+      path: BackendEndpoint.getProducts,
+      field: 'id',
+      values: productIds,
+    );
+
+    final products = data.map<ProductEntity>((e) {
+      return ProductModel.fromJson(e).toEntity();
+    }).toList();
+
+    return Right(products);
+  } catch (e) {
+    return Left(ServerFailuer(message: e.toString()));
+  }
+}
+
 }

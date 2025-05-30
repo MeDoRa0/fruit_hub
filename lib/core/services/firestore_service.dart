@@ -56,6 +56,25 @@ class FirestoreService implements DatabaseService {
     await firestore.collection(path).doc(docID).delete();
    
   }
+  
+ @override
+Future<List<Map<String, dynamic>>> fetchWhereIn({
+  required String path,
+  required String field,
+  required List<String> values,
+}) async {
+  try {
+    final snapshot = await FirebaseFirestore.instance
+        .collection(path)
+        .where(field, whereIn: values)
+        .get();
+
+    return snapshot.docs.map((doc) => doc.data()).toList();
+  } catch (e) {
+    throw Exception('fetchWhereIn failed: $e');
+  }
+}
+
 
   
 }

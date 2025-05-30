@@ -4,9 +4,10 @@ import 'package:fruit_hub/core/widgets/fruit_item.dart';
 import 'package:fruit_hub/features/home/domain/entites/favorite_entity.dart';
 
 class FavoriteGridview extends StatelessWidget {
-  const FavoriteGridview({super.key, required this.favoritesEntity, required this.products});
+  const FavoriteGridview(
+      {super.key, required this.favoritesEntity, required this.products});
   final List<FavoriteEntity> favoritesEntity;
-   final List<ProductEntity> products;
+  final List<ProductEntity> products;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,6 @@ class FavoriteGridview extends StatelessWidget {
       itemBuilder: (context, index) {
         return FruitItem(
           productEntity: products[index],
-          
         );
       },
     );
