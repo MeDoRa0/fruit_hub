@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
+
 import 'package:fruit_hub/features/home/presentation/views/widgets/main_view_body.dart';
 
-class MainViewBodyBlocConsumer extends StatelessWidget {
+class MainViewBodyBlocConsumer extends StatefulWidget {
   const MainViewBodyBlocConsumer({
     super.key,
     required this.currentViewIndex,
   });
 
   final int currentViewIndex;
+
+  @override
+  State<MainViewBodyBlocConsumer> createState() =>
+      _MainViewBodyBlocConsumerState();
+}
+
+class _MainViewBodyBlocConsumerState extends State<MainViewBodyBlocConsumer> {
+  @override
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +42,7 @@ class MainViewBodyBlocConsumer extends StatelessWidget {
           );
         }
       },
-      child: MainViewBody(currentViewIndex: currentViewIndex),
+      child: MainViewBody(currentViewIndex: widget.currentViewIndex),
     );
   }
 }

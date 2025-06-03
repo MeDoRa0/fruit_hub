@@ -23,7 +23,7 @@ void main() async {
   // this code is added to initialize shared preferences
   await SharedPreferencesSingleton.init();
   // this code is added to initialize get_it service
-  setupGetit();
+  setupGetIt();
 
   runApp(const FruitsHub());
 }

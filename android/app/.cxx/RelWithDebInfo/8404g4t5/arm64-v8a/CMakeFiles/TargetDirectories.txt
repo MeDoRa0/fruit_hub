@@ -1,0 +1,2 @@
+C:/Users/medo2/Desktop/programming/flutter/fruit_hub/android/app/.cxx/RelWithDebInfo/8404g4t5/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/medo2/Desktop/programming/flutter/fruit_hub/android/app/.cxx/RelWithDebInfo/8404g4t5/arm64-v8a/CMakeFiles/rebuild_cache.dir

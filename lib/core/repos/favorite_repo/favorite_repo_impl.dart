@@ -1,87 +1,40 @@
-import 'package:dartz/dartz.dart';
-import 'package:fruit_hub/core/entites/product_entity.dart';
-import 'package:fruit_hub/core/errors/failuers.dart';
-import 'package:fruit_hub/core/models/product_model.dart';
 import 'package:fruit_hub/core/repos/favorite_repo/favorite_repo.dart';
 import 'package:fruit_hub/core/services/database_service.dart';
-import 'package:fruit_hub/core/utils/backend_endpoint.dart';
-import 'package:fruit_hub/features/home/data/models/favorite_model.dart';
-import 'package:fruit_hub/features/home/domain/entites/favorite_entity.dart';
-
-class FavoriteRepoImpl extends FavoriteRepo {
+class FavoritesRepoImpl implements FavoritesRepo {
   final DatabaseService databaseService;
 
-  FavoriteRepoImpl(this.databaseService);
+  FavoritesRepoImpl(this.databaseService);
+
+  String favoritesPath(String userId) => 'users/$userId/favorites';
 
   @override
-  Future<Either<Failuers, void>> addProductToFavorite(
-      {required FavoriteEntity favoriteEntity}) async {
-    try {
-      await databaseService.addData(
-        path: BackendEndpoint.addToFavorites(favoriteEntity.userId),
-        docID: favoriteEntity.productId,
-        data: FavoriteModel.fromEntity(favoriteEntity).toJson(),
-      );
-      return const Right(null);
-    } catch (e) {
-      return Left(ServerFailuer(message: e.toString()));
-    }
+  Future<List<String>> getFavorites(String userId) async {
+    final data = await databaseService.fetchData(path: favoritesPath(userId));
+    return data.map<String>((e) => e['productCode'] as String).toList();
   }
 
   @override
-  Future<Either<Failuers, List<FavoriteEntity>>> getFavorites({
-    required String userId,
-  }) async {
-    try {
-      final data = await databaseService.fetchData(
-        path: BackendEndpoint.getFavorites(
-            userId), // جبت البيانات من المسار الصحيح
-      );
-
-      // تأكد إن البيانات List
-      final List<FavoriteEntity> favorites =
-          (data as List<dynamic>).map<FavoriteEntity>((e) {
-        return FavoriteModel.fromJson(e).toEntity();
-      }).toList();
-
-      return Right(favorites);
-    } catch (e) {
-      return Left(ServerFailuer(message: e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failuers, void>> removeProductFromFavorite(
-      {required FavoriteEntity favoriteEntity}) async {
-    try {
-      await databaseService.deleteData(
-        path: BackendEndpoint.removeFromFavorites(favoriteEntity.userId),
-        docID: favoriteEntity.productId,
-      );
-      return const Right(null);
-    } catch (e) {
-      return Left(ServerFailuer(message: e.toString()));
-    }
-  }
-
-  @override
-Future<Either<Failuers, List<ProductEntity>>> getFavoriteProductsByIds(
-    List<String> productIds) async {
-  try {
-    final data = await databaseService.fetchWhereIn(
-      path: BackendEndpoint.getProducts,
-      field: 'id',
-      values: productIds,
+  Future<void> addFavorite(String userId, String productCode) async {
+    await databaseService.addData(
+      path: favoritesPath(userId),
+      data: {'productCode': productCode},
+      docID: productCode,
     );
-
-    final products = data.map<ProductEntity>((e) {
-      return ProductModel.fromJson(e).toEntity();
-    }).toList();
-
-    return Right(products);
-  } catch (e) {
-    return Left(ServerFailuer(message: e.toString()));
   }
-}
 
+  @override
+  Future<void> removeFavorite(String userId, String productCode) async {
+    await databaseService.deleteData(
+      path: favoritesPath(userId),
+      docID: productCode,
+    );
+  }
+
+  @override
+  Future<bool> isFavorite(String userId, String productCode) async {
+    return databaseService.checkIfDataExists(
+      path: favoritesPath(userId),
+      docID: productCode,
+    );
+  }
 }

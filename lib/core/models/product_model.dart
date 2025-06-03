@@ -4,7 +4,6 @@ import 'package:fruit_hub/core/helper_functions/get_avarage_rating.dart';
 import 'package:fruit_hub/core/models/review_model.dart';
 
 class ProductModel {
-  final String productId;
   final String name;
   final String code;
   final String description;
@@ -23,7 +22,6 @@ class ProductModel {
 
   ProductModel(
       {required this.name,
-      required this.productId,
       required this.code,
       required this.description,
       required this.price,
@@ -44,7 +42,6 @@ class ProductModel {
                 .toList() ??
             [],
       ),
-      productId: json['productId'],
       name: json['name'],
       code: json['code'],
       description: json['description'],
@@ -65,7 +62,6 @@ class ProductModel {
 
   ProductEntity toEntity() {
     return ProductEntity(
-      productId:productId ,
       name: name,
       code: code,
       description: description,

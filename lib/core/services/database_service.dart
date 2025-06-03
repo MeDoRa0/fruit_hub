@@ -21,11 +21,6 @@ abstract class DatabaseService {
     required String docID,
   });
 
-  Future<List<Map<String, dynamic>>> fetchWhereIn({
-  required String path,
-  required String field,
-  required List<String> values,
-});
 
 
 }

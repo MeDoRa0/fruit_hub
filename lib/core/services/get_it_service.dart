@@ -9,48 +9,41 @@ import 'package:fruit_hub/core/services/firebase_auth_service.dart';
 import 'package:fruit_hub/core/services/firestore_service.dart';
 import 'package:fruit_hub/features/authentication/data/repository/auth_repo_impl.dart';
 import 'package:fruit_hub/features/authentication/domain/repository/auth_repo.dart';
-import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:get_it/get_it.dart';
 
-// GetIt service
 final getIt = GetIt.instance;
-// Register services
-void setupGetit() {
+
+void setupGetIt() {
   // Register FirebaseAuthService
   getIt.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
-  // Register FirestoreService
-  getIt.registerSingleton<DatabaseService>(FirestoreService());
+
+  // Register FirestoreService as DatabaseService
+  getIt.registerSingleton<DatabaseService>(FireStoreService());
+
   // Register AuthRepo
   getIt.registerSingleton<AuthRepo>(
-    // Inject FirebaseAuthService and FirestoreService
     AuthRepoImpl(
       firebaseAuthService: getIt<FirebaseAuthService>(),
       databaseService: getIt<DatabaseService>(),
     ),
   );
+
+  // Register ProductRepo
   getIt.registerSingleton<ProductRepo>(
-    // Inject FirebaseAuthService and FirestoreService
     ProductRepoImpl(
       databaseService: getIt<DatabaseService>(),
     ),
   );
+
   // Register OrderRepo
   getIt.registerSingleton<OrderRepo>(
-    // Inject FirebaseAuthService and FirestoreService
     OrderRepoImpl(
       getIt<DatabaseService>(),
     ),
   );
 
-  getIt.registerLazySingleton<FirestoreService>(() => FirestoreService());
-
-getIt.registerSingleton<FavoriteRepo>(
-  FavoriteRepoImpl(getIt<DatabaseService>()),
-);
-
-getIt.registerFactory(() => FavoritesCubit(getIt<FavoriteRepo>()));
-
-
-
-  
+  // Register FavoritesRepo
+  getIt.registerSingleton<FavoritesRepo>(
+    FavoritesRepoImpl(getIt<DatabaseService>()),
+  );
 }

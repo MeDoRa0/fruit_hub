@@ -1,85 +1,62 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/repos/favorite_repo/favorite_repo.dart';
-import 'package:fruit_hub/features/home/domain/entites/favorite_entity.dart';
-import 'favorite_state.dart'; // استورد الملف ده
+import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_state.dart';
 
-class FavoritesCubit extends Cubit<FavoriteState> {
-  final FavoriteRepo favoriteRepo;
+class FavoritesCubit extends Cubit<FavoritesState> {
+  final FavoritesRepo favoritesRepo;
+  final String userId;
 
-  FavoritesCubit(this.favoriteRepo) : super(FavoriteInitial());
-  void toggleFavorite({required FavoriteEntity favoriteEntity}) async {
-    final currentState = state;
+  FavoritesCubit({required this.favoritesRepo, required this.userId})
+      : super(FavoritesInitial());
 
-    if (currentState is Favoritesuccess) {
-      final currentFavorites = [...currentState.favorites];
-      final currentProducts = [...currentState.products];
-
-      final alreadyFavorite = currentFavorites.any(
-        (fav) => fav.productId == favoriteEntity.productId,
-      );
-
-      // Update UI Optimistically
-      if (alreadyFavorite) {
-        currentFavorites
-            .removeWhere((fav) => fav.productId == favoriteEntity.productId);
-        currentProducts.removeWhere(
-          (prod) => prod.productId == favoriteEntity.productId,
-        );
-      } else {
-        currentFavorites.add(favoriteEntity);
-        // fetch the single product to add to products list
-        final productResult = await favoriteRepo
-            .getFavoriteProductsByIds([favoriteEntity.productId]);
-        productResult.fold(
-          (failure) => emit(FavoriteError(failure.message)),
-          (newProducts) => currentProducts.addAll(newProducts),
-        );
-      }
-      emit(Favoritesuccess(currentFavorites, currentProducts));
-
-      // Real operation
-      final result = alreadyFavorite
-          ? await favoriteRepo.removeProductFromFavorite(
-              favoriteEntity: favoriteEntity)
-          : await favoriteRepo.addProductToFavorite(
-              favoriteEntity: favoriteEntity);
-
-      result.fold(
-        (failure) => emit(FavoriteError(failure.message)),
-        (_) async {
-          final updatedFavorites = await favoriteRepo.getFavorites(
-            userId: favoriteEntity.userId,
-          );
-          updatedFavorites.fold(
-            (failure) => emit(FavoriteError(failure.message)),
-            (favorites) async {
-              final productIds = favorites.map((f) => f.productId).toList();
-
-              final productResult =
-                  await favoriteRepo.getFavoriteProductsByIds(productIds);
-              productResult.fold(
-                (failure) => emit(FavoriteError(failure.message)),
-                (products) => emit(Favoritesuccess(favorites, products)),
-              );
-            },
-          );
-        },
-      );
+  Future<void> loadFavorites() async {
+    emit(FavoritesLoading());
+    try {
+      final favorites = await favoritesRepo.getFavorites(userId);
+      emit(FavoritesLoaded(favorites: favorites));
+    } catch (e) {
+      emit(FavoritesFailure(errorMessage: e.toString()));
     }
   }
 
-  void loadFavorites(String userId) async {
-    emit(FavoriteLoading());
-    final result = await favoriteRepo.getFavorites(userId: userId);
-    result.fold((failure) => emit(FavoriteError(failure.message)),
-        (favorites) async {
-      final productId = favorites.map((e) => e.productId).toList();
-      final productResult =
-          await favoriteRepo.getFavoriteProductsByIds(productId);
-      productResult.fold(
-        (failure) => emit(FavoriteError(failure.message)),
-        (products) => emit(Favoritesuccess(favorites, products)),
-      );
-    });
+  Future<void> addFavorite(String productCode) async {
+    if (state is FavoritesLoaded) {
+      final currentFavorites = (state as FavoritesLoaded).favorites;
+      if (!currentFavorites.contains(productCode)) {
+        try {
+          await favoritesRepo.addFavorite(userId, productCode);
+          final updatedFavorites = List<String>.from(currentFavorites)
+            ..add(productCode);
+          print('Updated favorites list: $updatedFavorites');
+          emit(FavoritesLoaded(favorites: updatedFavorites));
+        } catch (e) {
+          emit(FavoritesFailure(errorMessage: e.toString()));
+        }
+      }
+    }
+  }
+
+  Future<void> removeFavorite(String productCode) async {
+    if (state is FavoritesLoaded) {
+      final currentFavorites = (state as FavoritesLoaded).favorites;
+      if (currentFavorites.contains(productCode)) {
+        try {
+          await favoritesRepo.removeFavorite(userId, productCode);
+          final updatedFavorites = List<String>.from(currentFavorites)
+            ..remove(productCode);
+          print('Updated favorites list: $updatedFavorites');
+          emit(FavoritesLoaded(favorites: updatedFavorites));
+        } catch (e) {
+          emit(FavoritesFailure(errorMessage: e.toString()));
+        }
+      }
+    }
+  }
+
+  bool isFavorite(String productCode) {
+    if (state is FavoritesLoaded) {
+      return (state as FavoritesLoaded).favorites.contains(productCode);
+    }
+    return false;
   }
 }

@@ -1,21 +1,15 @@
-import 'package:fruit_hub/core/entites/product_entity.dart';
-import 'package:fruit_hub/features/home/domain/entites/favorite_entity.dart';
+sealed class FavoritesState {}
 
-abstract class FavoriteState {}
+final class FavoritesInitial extends FavoritesState {}
 
-class FavoriteInitial extends FavoriteState {}
+final class FavoritesLoading extends FavoritesState {}
 
-class FavoriteLoading extends FavoriteState {}
-
-class Favoritesuccess extends FavoriteState {
-  final List<FavoriteEntity> favorites;
-   final List<ProductEntity> products;
-
-  Favoritesuccess(this.favorites, this.products);
+final class FavoritesLoaded extends FavoritesState {
+  final List<String> favorites; // قائمة كودات المنتجات المفضلة
+  FavoritesLoaded({required this.favorites});
 }
 
-class FavoriteError extends FavoriteState {
-  final String message;
-
-  FavoriteError(this.message);
+final class FavoritesFailure extends FavoritesState {
+  final String errorMessage;
+  FavoritesFailure({required this.errorMessage});
 }

@@ -9,8 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class FirebaseAuthService {
-
- User? get currentUser => FirebaseAuth.instance.currentUser;
+  User? get currentUser => FirebaseAuth.instance.currentUser;
   //create user with email and password
   Future<User> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
@@ -68,35 +67,77 @@ class FirebaseAuthService {
   }
 
   Future<User> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        throw CustomException(message: 'تم إلغاء تسجيل الدخول بواسطة Google');
+      }
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    // Once signed in, return the UserCredential
-    return (await FirebaseAuth.instance.signInWithCredential(credential)).user!;
+      // Once signed in, return the UserCredential
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      if (userCredential.user == null) {
+        throw CustomException(message: 'فشل تسجيل الدخول بواسطة Google');
+      }
+      return userCredential.user!;
+    } on FirebaseAuthException catch (e) {
+      log('Exception in firebase auth service.sign in with google: ${e.toString()} and code is ${e.code}');
+      throw CustomException(
+          message: 'حدث خطأ أثناء تسجيل الدخول بواسطة Google');
+    } catch (e) {
+      log('Exception in firebase auth service.sign in with google: ${e.toString()}');
+      throw CustomException(
+          message: 'حدث خطأ أثناء تسجيل الدخول بواسطة Google');
+    }
   }
 
   Future<User> signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final LoginResult loginResult = await FacebookAuth.instance.login();
+    try {
+      // Trigger the sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance.login();
 
-    // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+      if (loginResult.status != LoginStatus.success) {
+        throw CustomException(message: 'فشل تسجيل الدخول بواسطة Facebook');
+      }
 
-    // Once signed in, return the UserCredential
-    return (await FirebaseAuth.instance
-            .signInWithCredential(facebookAuthCredential))
-        .user!;
+      final accessToken = loginResult.accessToken;
+      if (accessToken == null) {
+        throw CustomException(
+            message: 'لم يتم الحصول على رمز الوصول من Facebook');
+      }
+
+      // Create a credential from the access token
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(accessToken.tokenString);
+
+      // Once signed in, return the UserCredential
+      final userCredential = await FirebaseAuth.instance
+          .signInWithCredential(facebookAuthCredential);
+
+      if (userCredential.user == null) {
+        throw CustomException(message: 'فشل تسجيل الدخول بواسطة Facebook');
+      }
+      return userCredential.user!;
+    } on FirebaseAuthException catch (e) {
+      log('Exception in firebase auth service.sign in with facebook: ${e.toString()} and code is ${e.code}');
+      throw CustomException(
+          message: 'حدث خطأ أثناء تسجيل الدخول بواسطة Facebook');
+    } catch (e) {
+      log('Exception in firebase auth service.sign in with facebook: ${e.toString()}');
+      throw CustomException(
+          message: 'حدث خطأ أثناء تسجيل الدخول بواسطة Facebook');
+    }
   }
 
   /// Generates a cryptographically secure random nonce, to be included in a
@@ -145,8 +186,25 @@ class FirebaseAuthService {
         .user!;
   }
 
-  Future deleteUser() async {
-    await FirebaseAuth.instance.currentUser!.delete();
+  Future<void> deleteUser() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        throw CustomException(message: 'لا يوجد مستخدم مسجل الدخول');
+      }
+      await user.delete();
+    } on FirebaseAuthException catch (e) {
+      log('Exception in firebase auth service.delete user: ${e.toString()} and code is ${e.code}');
+      if (e.code == 'requires-recent-login') {
+        throw CustomException(
+            message: 'يرجى تسجيل الدخول مرة أخرى قبل حذف الحساب');
+      } else {
+        throw CustomException(message: 'حدث خطأ أثناء حذف الحساب');
+      }
+    } catch (e) {
+      log('Exception in firebase auth service.delete user: ${e.toString()}');
+      throw CustomException(message: 'حدث خطأ أثناء حذف الحساب');
+    }
   }
 
   bool isUserSignedIn() {

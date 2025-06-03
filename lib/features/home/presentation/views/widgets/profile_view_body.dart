@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_hub/core/helper_functions/get_user.dart';
 import 'package:fruit_hub/core/utils/assets.dart';
+import 'package:fruit_hub/features/home/presentation/views/widgets/favorite_view.dart';
 import '../../../../../core/utils/text_styles.dart';
-import 'favorites_view.dart';
 
 class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-   // final userId = getIt<FirebaseAuthService>().currentUser!.uid;
+    // final userId = getIt<FirebaseAuthService>().currentUser!.uid;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -27,12 +28,12 @@ class ProfileViewBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'John Doe',
+                      getUser().name,
                       style: AppTextStyle.font19Bold,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'john.doe@example.com',
+                      getUser().email,
                       style: AppTextStyle.font16Regular,
                     ),
                   ],
