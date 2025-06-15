@@ -24,7 +24,7 @@ class ProductRepoImpl extends ProductRepo {
       List<ProductEntity> productsEntities =
           data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
       return Right(productsEntities);
-    } on Exception catch (e) {
+    } on Exception {
       return Left(
         ServerFailuer(
           message: 'خطأ في جلب البيانات',
@@ -42,7 +42,7 @@ class ProductRepoImpl extends ProductRepo {
       List<ProductEntity> productsEntities =
           data.map((e) => ProductModel.fromJson(e).toEntity()).toList();
       return Right(productsEntities);
-    } on Exception catch (e) {
+    } on Exception {
       return Left(
         ServerFailuer(
           message: 'خطأ في جلب البيانات',

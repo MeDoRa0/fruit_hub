@@ -16,11 +16,14 @@ abstract class DatabaseService {
     required String docID,
   });
 
-    Future<void> deleteData({
+  Future<void> deleteData({
     required String path,
     required String docID,
   });
 
-
-
+  Future<void> updateData({
+    required String path,
+    required Map<String, dynamic> data,
+    required String docID,
+  });
 }

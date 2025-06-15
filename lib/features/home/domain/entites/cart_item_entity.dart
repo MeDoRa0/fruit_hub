@@ -5,24 +5,27 @@ class CartItemEntity extends Equatable {
   final ProductEntity productEntity;
   int quantity;
 
-  CartItemEntity({required this.productEntity, this.quantity = 0});
-
-  num calculateTotalPrice() {
-    return productEntity.price * quantity;
-  }
-
-  num calculateTotalWeight() {
-    return productEntity.unitAmount * quantity;
-  }
+  CartItemEntity({
+    required this.productEntity,
+    this.quantity = 1,
+  });
 
   void incrementQuantity() {
     quantity++;
   }
 
   void decrementQuantity() {
-    if (quantity > 0) {
+    if (quantity > 1) {
       quantity--;
     }
+  }
+
+  double calculateTotalPrice() {
+    return (productEntity.price * quantity).toDouble();
+  }
+
+  double calculateTotalWeight() {
+    return (productEntity.unitAmount * quantity).toDouble();
   }
 
   @override

@@ -60,6 +60,25 @@ class ProductModel {
     );
   }
 
+  factory ProductModel.fromEntity(ProductEntity entity) {
+    return ProductModel(
+      name: entity.name,
+      code: entity.code,
+      description: entity.description,
+      price: entity.price,
+      isFeatured: entity.isFeatured,
+      imageUrl: entity.imageUrl,
+      expiryLimit: entity.expiryLimit,
+      isOrganic: entity.isOrganic,
+      numberOfCalories: entity.numberOfCalories,
+      unitAmount: entity.unitAmount,
+      reviews: entity.reviews
+          .map((review) => ReviewModel.fromEntity(review))
+          .toList(),
+      avrageRating: entity.avrageRating,
+    );
+  }
+
   ProductEntity toEntity() {
     return ProductEntity(
       name: name,

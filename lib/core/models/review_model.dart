@@ -17,14 +17,14 @@ class ReviewModel {
     required this.reviewDescription,
   });
 
-  factory ReviewModel.fromEntity(ReviewEntity reviewEntity) {
+  factory ReviewModel.fromEntity(ReviewEntity entity) {
     return ReviewModel(
-      name: reviewEntity.name,
-      comment: reviewEntity.comment,
-      date: reviewEntity.date,
-      image: reviewEntity.image,
-      rating: reviewEntity.rating,
-      reviewDescription: reviewEntity.reviewDescription,
+      name: entity.name,
+      comment: entity.comment,
+      date: entity.date,
+      image: entity.image,
+      rating: entity.rating,
+      reviewDescription: entity.reviewDescription,
     );
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/features/home/domain/entites/cart_item_entity.dart';
+import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/cart_item_cubit/cart_item_cubit.dart';
 
 class CartItemActionButton extends StatelessWidget {
@@ -19,6 +20,8 @@ class CartItemActionButton extends StatelessWidget {
         onPressed: () {
           cartItemEntity.incrementQuantity();
           context.read<CartItemCubit>().updateCartItem(cartItemEntity);
+          // Update Firebase after incrementing quantity
+          context.read<CartCubit>().updateCartItemQuantity(cartItemEntity);
         },
       ),
       Padding(
@@ -35,6 +38,8 @@ class CartItemActionButton extends StatelessWidget {
         onPressed: () {
           cartItemEntity.decrementQuantity();
           context.read<CartItemCubit>().updateCartItem(cartItemEntity);
+          // Update Firebase after decrementing quantity
+          context.read<CartCubit>().updateCartItemQuantity(cartItemEntity);
         },
       ),
     ]);

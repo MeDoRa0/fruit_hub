@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/core/repos/favorite_repo/favorite_repo.dart';
 import 'package:fruit_hub/core/services/firebase_auth_service.dart';
 import 'package:fruit_hub/core/services/get_it_service.dart';
+import 'package:fruit_hub/features/home/domain/repository/cart_repo.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_cubit.dart';
 
@@ -23,11 +24,13 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    //final userId = GetIt.instance<FirebaseAuthService>().currentUser!.uid;
     return MultiBlocProvider(
       providers: [
         BlocProvider<CartCubit>(
-          create: (context) => CartCubit(),
+          create: (context) => CartCubit(
+            cartRepo: getIt<CartRepo>(),
+            firebaseAuthService: getIt<FirebaseAuthService>(),
+          ),
         ),
         BlocProvider(
           create: (context) => FavoritesCubit(
@@ -44,7 +47,6 @@ class _MainViewState extends State<MainView> {
           },
         ),
         body: SafeArea(
-          //
           child: MainViewBodyBlocConsumer(currentViewIndex: currentViewIndex),
         ),
       ),

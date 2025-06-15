@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
+import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_cubit.dart';
 
 import 'package:fruit_hub/features/home/presentation/views/widgets/main_view_body.dart';
+import 'package:fruit_hub/main.dart';
 
 class MainViewBodyBlocConsumer extends StatefulWidget {
   const MainViewBodyBlocConsumer({
@@ -17,8 +19,29 @@ class MainViewBodyBlocConsumer extends StatefulWidget {
       _MainViewBodyBlocConsumerState();
 }
 
-class _MainViewBodyBlocConsumerState extends State<MainViewBodyBlocConsumer> {
+class _MainViewBodyBlocConsumerState extends State<MainViewBodyBlocConsumer>
+    with RouteAware {
+   void didChangeDependencies() {
+    super.didChangeDependencies();
+   final route = ModalRoute.of(context);
+if (route is PageRoute) {
+  routeObserver.subscribe(this, route);
+}
+
+  }
+
   @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  // 👇 ده بيتنفذ لما ترجع من صفحة تانية زي Favorites
+  @override
+  void didPopNext() {
+    context.read<FavoritesCubit>().loadFavorites();
+    super.didPopNext();
+  }
  
 
   @override

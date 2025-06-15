@@ -19,8 +19,8 @@ class CartItem extends StatelessWidget {
     return BlocBuilder<CartItemCubit, CartItemState>(
       /// Listen to CartItemCubit to update the UI when cart item is updated
       buildWhen: (previous, current) {
-        /// Check if the current state is CartItemUpdated and if the cart item entity is the same as the one passed to this widget
-        if (current is CartItemUpdated) {
+        /// Check if the current state is CartItemQuantityUpdated and if the cart item entity is the same as the one passed to this widget
+        if (current is CartItemQuantityUpdated) {
           /// Check if the current cart item entity is the same as the one passed to this widget
           if (current.cartItemEntity == cartItemEntity) {
             /// Return true to rebuild the widget

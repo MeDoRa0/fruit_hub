@@ -11,27 +11,26 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   Future<void> loadFavorites() async {
     emit(FavoritesLoading());
-    try {
-      final favorites = await favoritesRepo.getFavorites(userId);
-      emit(FavoritesLoaded(favorites: favorites));
-    } catch (e) {
-      emit(FavoritesFailure(errorMessage: e.toString()));
-    }
+    final result = await favoritesRepo.getFavorites(userId);
+    result.fold(
+      (failure) => emit(FavoritesFailure(errorMessage: failure.message)),
+      (favorites) => emit(FavoritesLoaded(favorites: favorites)),
+    );
   }
 
   Future<void> addFavorite(String productCode) async {
     if (state is FavoritesLoaded) {
       final currentFavorites = (state as FavoritesLoaded).favorites;
       if (!currentFavorites.contains(productCode)) {
-        try {
-          await favoritesRepo.addFavorite(userId, productCode);
-          final updatedFavorites = List<String>.from(currentFavorites)
-            ..add(productCode);
-          print('Updated favorites list: $updatedFavorites');
-          emit(FavoritesLoaded(favorites: updatedFavorites));
-        } catch (e) {
-          emit(FavoritesFailure(errorMessage: e.toString()));
-        }
+        final result = await favoritesRepo.addFavorite(userId, productCode);
+        result.fold(
+          (failure) => emit(FavoritesFailure(errorMessage: failure.message)),
+          (_) {
+            final updatedFavorites = List<String>.from(currentFavorites)
+              ..add(productCode);
+            emit(FavoritesLoaded(favorites: updatedFavorites));
+          },
+        );
       }
     }
   }
@@ -40,15 +39,15 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     if (state is FavoritesLoaded) {
       final currentFavorites = (state as FavoritesLoaded).favorites;
       if (currentFavorites.contains(productCode)) {
-        try {
-          await favoritesRepo.removeFavorite(userId, productCode);
-          final updatedFavorites = List<String>.from(currentFavorites)
-            ..remove(productCode);
-          print('Updated favorites list: $updatedFavorites');
-          emit(FavoritesLoaded(favorites: updatedFavorites));
-        } catch (e) {
-          emit(FavoritesFailure(errorMessage: e.toString()));
-        }
+        final result = await favoritesRepo.removeFavorite(userId, productCode);
+        result.fold(
+          (failure) => emit(FavoritesFailure(errorMessage: failure.message)),
+          (_) {
+            final updatedFavorites = List<String>.from(currentFavorites)
+              ..remove(productCode);
+            emit(FavoritesLoaded(favorites: updatedFavorites));
+          },
+        );
       }
     }
   }

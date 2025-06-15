@@ -4,9 +4,11 @@ import 'package:fruit_hub/core/entites/product_entity.dart';
 import 'package:fruit_hub/core/utils/app_colors.dart';
 import 'package:fruit_hub/core/utils/text_styles.dart';
 import 'package:fruit_hub/core/widgets/custom_netowk_image.dart';
+import 'package:fruit_hub/features/home/domain/entites/cart_item_entity.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_cubit.dart';
 import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favorite_state.dart';
+
 class FruitItem extends StatelessWidget {
   const FruitItem({super.key, required this.productEntity});
 
@@ -57,7 +59,8 @@ class FruitItem extends StatelessWidget {
                   ListTile(
                     title: Text(
                       productEntity.name,
-                      style: AppTextStyle.font13w600.copyWith(color: Colors.black),
+                      style:
+                          AppTextStyle.font13w600.copyWith(color: Colors.black),
                     ),
                     subtitle: Text.rich(
                       TextSpan(
@@ -85,15 +88,39 @@ class FruitItem extends StatelessWidget {
                       ),
                       textAlign: TextAlign.right,
                     ),
-                    trailing: CircleAvatar(
-                      backgroundColor: AppColors.primaryColor,
-                      radius: 20,
-                      child: IconButton(
-                        onPressed: () {
-                          context.read<CartCubit>().addProductToCart(productEntity);
-                        },
-                        icon: const Icon(Icons.add, color: Colors.white),
-                      ),
+                    trailing: BlocBuilder<CartCubit, CartState>(
+                      builder: (context, state) {
+                        final cartCubit = context.read<CartCubit>();
+                        final isInCart = cartCubit.cartEntity.isProductInCart(
+                          CartItemEntity(productEntity: productEntity),
+                        );
+
+                        return CircleAvatar(
+                          backgroundColor: isInCart
+                              ? AppColors.secondaryColor
+                              : AppColors.primaryColor,
+                          radius: 20,
+                          child: IconButton(
+                            onPressed: () {
+                              if (isInCart) {
+                                // Remove from cart
+                                final cartItem =
+                                    cartCubit.cartEntity.getCartItem(
+                                  CartItemEntity(productEntity: productEntity),
+                                );
+                                cartCubit.deleteCartItem(cartItem);
+                              } else {
+                                // Add to cart
+                                cartCubit.addProductToCart(productEntity);
+                              }
+                            },
+                            icon: Icon(
+                              isInCart ? Icons.check : Icons.add,
+                              color: Colors.white,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],

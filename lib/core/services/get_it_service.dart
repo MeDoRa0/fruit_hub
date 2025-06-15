@@ -9,6 +9,8 @@ import 'package:fruit_hub/core/services/firebase_auth_service.dart';
 import 'package:fruit_hub/core/services/firestore_service.dart';
 import 'package:fruit_hub/features/authentication/data/repository/auth_repo_impl.dart';
 import 'package:fruit_hub/features/authentication/domain/repository/auth_repo.dart';
+import 'package:fruit_hub/features/home/data/repository/cart_repo_impl.dart';
+import 'package:fruit_hub/features/home/domain/repository/cart_repo.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -45,5 +47,12 @@ void setupGetIt() {
   // Register FavoritesRepo
   getIt.registerSingleton<FavoritesRepo>(
     FavoritesRepoImpl(getIt<DatabaseService>()),
+  );
+
+  // Register CartRepo
+  getIt.registerSingleton<CartRepo>(
+    CartRepoImpl(
+      databaseService: getIt<DatabaseService>(),
+    ),
   );
 }

@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fruit_hub/core/services/database_service.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'database_service.dart';
 
 class FireStoreService implements DatabaseService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -64,4 +62,15 @@ class FireStoreService implements DatabaseService {
   }) async {
     await firestore.collection(path).doc(docID).delete();
   }
+  
+ @override
+Future<void> updateData({
+  required String path,
+  required Map<String, dynamic> data,
+  required String docID,
+}) async {
+  print("🔥 [FireStore] Update Data at $path/$docID: $data");
+  await firestore.collection(path).doc(docID).update(data);
+}
+
 }

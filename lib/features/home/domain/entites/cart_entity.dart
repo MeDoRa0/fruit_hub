@@ -1,4 +1,3 @@
-import 'package:fruit_hub/core/entites/product_entity.dart';
 import 'package:fruit_hub/features/home/domain/entites/cart_item_entity.dart';
 
 class CartEntity {
@@ -7,36 +6,27 @@ class CartEntity {
   CartEntity(this.cartItems);
 
   double calculateTotalPrice() {
-    double totalPrice = 0.0;
-    for (var cartItem in cartItems) {
-      totalPrice += cartItem.calculateTotalPrice();
-    }
-    return totalPrice;
+    return cartItems.fold(0, (sum, item) => sum + item.calculateTotalPrice());
   }
 
-  bool isProductInCart(ProductEntity product) {
-    for (var cartItem in cartItems) {
-      if (cartItem.productEntity == product) {
-        return true;
-      }
-    }
-    return false;
+  bool isProductInCart(CartItemEntity product) {
+    return cartItems
+        .any((item) => item.productEntity.code == product.productEntity.code);
   }
 
-  CartItemEntity getCartItem(ProductEntity product) {
-    for (var cartItem in cartItems) {
-      if (cartItem.productEntity == product) {
-        return cartItem;
-      }
-    }
-    return CartItemEntity(productEntity: product, quantity: 1);
+  CartItemEntity getCartItem(CartItemEntity product) {
+    return cartItems.firstWhere(
+      (item) => item.productEntity.code == product.productEntity.code,
+      orElse: () => product,
+    );
   }
 
-  addItemTocart(CartItemEntity cartItemEntity) {
-    cartItems.add(cartItemEntity);
+  void addItemTocart(CartItemEntity item) {
+    cartItems.add(item);
   }
 
-  removeItemFromCart(CartItemEntity cartItemEntity) {
-    cartItems.remove(cartItemEntity);
+  void removeItemFromCart(CartItemEntity item) {
+    cartItems.removeWhere(
+        (element) => element.productEntity.code == item.productEntity.code);
   }
 }

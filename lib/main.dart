@@ -24,15 +24,18 @@ void main() async {
   await SharedPreferencesSingleton.init();
   // this code is added to initialize get_it service
   setupGetIt();
+  
 
   runApp(const FruitsHub());
 }
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 class FruitsHub extends StatelessWidget {
   const FruitsHub({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       //this code is added to set the default font family (cairo) for the app
       theme: ThemeData(
@@ -55,6 +58,8 @@ class FruitsHub extends StatelessWidget {
       title: 'Fruits Hub',
       onGenerateRoute: onGenerateRoutes,
       initialRoute: SplashView.routeName,
+      
+      navigatorObservers: [routeObserver],
     );
   }
 }
