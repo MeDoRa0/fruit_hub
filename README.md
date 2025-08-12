@@ -175,14 +175,6 @@ flutter build ios --release
 flutter build web --release
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -192,17 +184,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Mohamed Hossam**
 - GitHub: [@MeDoRa0](https://github.com/MeDoRa0)
 - LinkedIn: [Mohamed Hossam](https://linkedin.com/in/mohamed-hossam93)
-
-## 🙏 Acknowledgments
-
-- Flutter team for the amazing framework
-- Firebase for backend services
-- PayPal for payment integration
-- All contributors and supporters
-
-## 📞 Support
-
-If you have any questions or need help, please open an issue on GitHub or contact me directly.
 
 ---
 
