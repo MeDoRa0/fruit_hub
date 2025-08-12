@@ -5,6 +5,7 @@ import 'package:fruit_hub/features/home/presentation/cubits/favorite_cubit/favor
 class FavoritesCubit extends Cubit<FavoritesState> {
   final FavoritesRepo favoritesRepo;
   final String userId;
+  List<String> _favorites = [];
 
   FavoritesCubit({required this.favoritesRepo, required this.userId})
       : super(FavoritesInitial());
@@ -14,7 +15,10 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     final result = await favoritesRepo.getFavorites(userId);
     result.fold(
       (failure) => emit(FavoritesFailure(errorMessage: failure.message)),
-      (favorites) => emit(FavoritesLoaded(favorites: favorites)),
+      (favorites) {
+        _favorites = favorites;
+        emit(FavoritesLoaded(favorites: favorites));
+      },
     );
   }
 
@@ -26,11 +30,17 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         result.fold(
           (failure) => emit(FavoritesFailure(errorMessage: failure.message)),
           (_) {
-            final updatedFavorites = List<String>.from(currentFavorites)
-              ..add(productCode);
-            emit(FavoritesLoaded(favorites: updatedFavorites));
+            _favorites = List<String>.from(currentFavorites)..add(productCode);
+            emit(FavoritesLoaded(favorites: _favorites));
           },
         );
+      }
+    } else {
+      // If not in loaded state, try to load favorites first
+      await loadFavorites();
+      // Then try to add the favorite
+      if (state is FavoritesLoaded) {
+        await addFavorite(productCode);
       }
     }
   }
@@ -43,11 +53,18 @@ class FavoritesCubit extends Cubit<FavoritesState> {
         result.fold(
           (failure) => emit(FavoritesFailure(errorMessage: failure.message)),
           (_) {
-            final updatedFavorites = List<String>.from(currentFavorites)
+            _favorites = List<String>.from(currentFavorites)
               ..remove(productCode);
-            emit(FavoritesLoaded(favorites: updatedFavorites));
+            emit(FavoritesLoaded(favorites: _favorites));
           },
         );
+      }
+    } else {
+      // If not in loaded state, try to load favorites first
+      await loadFavorites();
+      // Then try to remove the favorite
+      if (state is FavoritesLoaded) {
+        await removeFavorite(productCode);
       }
     }
   }
@@ -56,6 +73,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     if (state is FavoritesLoaded) {
       return (state as FavoritesLoaded).favorites.contains(productCode);
     }
-    return false;
+    // If not in loaded state, use the cached favorites
+    return _favorites.contains(productCode);
   }
 }

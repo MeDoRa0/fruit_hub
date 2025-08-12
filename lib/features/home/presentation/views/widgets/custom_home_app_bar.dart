@@ -9,6 +9,15 @@ class CustomHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get user name safely
+    String userName = 'User';
+    try {
+      userName = getUser().name;
+    } catch (e) {
+      // If user data is not available, use default value
+      // This can happen during logout process
+    }
+
     return ListTile(
       leading: Image.asset(Assets.imagesProfile),
       title: Text(
@@ -18,7 +27,7 @@ class CustomHomeAppBar extends StatelessWidget {
         ),
       ),
       subtitle: Text(
-        getUser().name,
+        userName,
         style: AppTextStyle.font16Bold,
       ),
       trailing: NotificationIconWidget(),

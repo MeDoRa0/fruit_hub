@@ -26,8 +26,19 @@ class _CheckoutViewsState extends State<CheckoutViews> {
   @override
   void initState() {
     super.initState();
+
+    // Get user ID safely
+    String userId = '';
+    try {
+      userId = getUser().uId;
+    } catch (e) {
+      // If user data is not available, this might cause issues
+      // but the checkout process should not proceed without a valid user
+      print('Error getting user ID: $e');
+    }
+
     orderEntity = OrderInputEntity(widget.cartEntity,
-        shippingAddressEntity: ShippingAddressEntity(), uID: getUser().uId);
+        shippingAddressEntity: ShippingAddressEntity(), uID: userId);
   }
 
   @override

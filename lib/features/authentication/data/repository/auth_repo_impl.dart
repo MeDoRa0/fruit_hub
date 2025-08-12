@@ -172,4 +172,17 @@ class AuthRepoImpl extends AuthRepo {
     var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
     await SharedPreferencesSingleton.setString(kUserData, jsonData);
   }
+
+  @override
+  Future<void> signOut() async {
+    try {
+      // Clear user data from SharedPreferences
+      await SharedPreferencesSingleton.remove(kUserData);
+      // Sign out from Firebase
+      await firebaseAuthService.signOut();
+    } catch (e) {
+      log('Exception in AuthRepoImpl.sign out: ${e.toString()}');
+      throw CustomException(message: 'حدث خطأ أثناء تسجيل الخروج');
+    }
+  }
 }

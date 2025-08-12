@@ -14,10 +14,26 @@ class FavoritesRepoImpl implements FavoritesRepo {
     try {
       final data = await databaseService.fetchData(
           path: BackendEndpoint.getFavorites(userId));
-      final favorites =
-          data.map<String>((e) => e['productCode'] as String).toList();
+
+      if (data == null) {
+        return right([]); // Return empty list if no data exists
+      }
+
+      if (data is! List) {
+        return left(
+            ServerFailuer(message: 'Invalid data format received from server'));
+      }
+
+      final favorites = data
+          .whereType<Map<String, dynamic>>()
+          .map((e) => e['productCode'] as String?)
+          .where((code) => code != null)
+          .cast<String>()
+          .toList();
+
       return right(favorites);
     } catch (e) {
+      print('🔥 Error fetching favorites: $e');
       return left(ServerFailuer(message: 'Failed to fetch favorites: $e'));
     }
   }
@@ -33,6 +49,7 @@ class FavoritesRepoImpl implements FavoritesRepo {
       );
       return right(unit);
     } catch (e) {
+      print('🔥 Error adding favorite: $e');
       return left(ServerFailuer(message: 'Failed to add favorite: $e'));
     }
   }
@@ -47,6 +64,7 @@ class FavoritesRepoImpl implements FavoritesRepo {
       );
       return right(unit);
     } catch (e) {
+      print('🔥 Error removing favorite: $e');
       return left(ServerFailuer(message: 'Failed to remove favorite: $e'));
     }
   }
@@ -61,6 +79,7 @@ class FavoritesRepoImpl implements FavoritesRepo {
       );
       return right(exists);
     } catch (e) {
+      print('🔥 Error checking favorite: $e');
       return left(ServerFailuer(message: 'Failed to check favorite: $e'));
     }
   }
